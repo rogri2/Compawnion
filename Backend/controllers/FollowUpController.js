@@ -1,0 +1,1 @@
+const FollowUp = require('../models/FollowUpSchema');

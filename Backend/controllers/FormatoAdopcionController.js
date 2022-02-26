@@ -1,0 +1,1 @@
+const FormatoAdopcion = require('../models/FormatoAdopcionSchema');

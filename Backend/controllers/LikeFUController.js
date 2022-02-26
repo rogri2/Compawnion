@@ -1,0 +1,1 @@
+const LikeFU = require('../models/LikeFUShcema');

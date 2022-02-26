@@ -1,0 +1,1 @@
+const WatchList = require('../models/WatchListSchema');
