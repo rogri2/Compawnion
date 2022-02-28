@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const test_controller = require('../controllers/LikeFUController');
+const likeFU_controller = require('../controllers/LikeFUController');
 
-//router.post("/test", test_controller.test_create);
+router.post("/likeFU", likeFU_controller.likeFU_create);
+router.put("/likeFU/:id", likeFU_controller.likeFU_update);
+router.get("/likeFU/:id", likeFU_controller.likeFU_getAll);
 
 module.exports = router;

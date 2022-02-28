@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema({
+    _usuario: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "usuario"
+    },
     nombre: {
         type: String,
         required: true,
@@ -26,7 +30,7 @@ const PostSchema = new mongoose.Schema({
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "imagen",
-            required: true
+            //required: true
         },
         {
             type: mongoose.Schema.Types.ObjectId,
