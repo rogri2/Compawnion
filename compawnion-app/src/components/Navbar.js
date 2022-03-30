@@ -6,8 +6,8 @@ export default function Navbar() {
     <Fragment>
         <nav className='navbar'>
             <Link to="/">Home</Link>
-            <Link to="/profile/:id">Perfil</Link>
-            <Link to="/search">Buscar</Link>
+            <Link to="/perfil/:id">Perfil</Link>
+            <Link to="/busqueda">Buscar</Link>
             <Link to="/">Sign Out</Link>
         </nav>
     </Fragment>
