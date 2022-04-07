@@ -11,7 +11,7 @@ export default function Navbar() {
   const classes = useStyles()
   return (
     <Fragment>  
-        <AppBar position='fixed'>
+        <AppBar position='fixed' elevation='0'>
           <Toolbar>
             <Typography variant='h5' component="div" sx={{flexGrow: 1}}>
               Compawnion
