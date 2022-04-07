@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
-import { TextField, Container, FormControl, Button } from '@mui/material';
+import { TextField, Container, FormControl, Button, Grid, Paper, Avatar } from '@mui/material';
+import PetsIcon from '@mui/icons-material/Pets';
+import ArrowForwardIcon  from '@mui/icons-material/ArrowForward';
 import { Link } from 'react-router-dom'
+import { height } from '@mui/system';
+
 
 export default function LogIn() {
   const [usuario, setUser] = useState({
@@ -17,11 +21,24 @@ export default function LogIn() {
     });
   }
 
+
+  const ContainerStyle={paddingLeft: "45rem" ,paddingTop:"5rem"}
+  const paperStyle={paddingTop: "10vh", padding :20, height:'70vh', width:360, margin:"20px auto", borderRadius: "15px"}
+  const avatarStyle ={backgroundColor: 'red', width: 100, height: 100 }
+  const buttonStyle ={paddingTop: "25px"}
+  const NoAccStyle = {paddingTop: "4rem"}
+  const UserStyle = { paddingTop:"1rem"}
   return (
-    <Container>
-      <div>Iniciar Sesión</div>
-      <form>
-        <FormControl fullWidth sx={{ m: 1 }}>
+
+    <Container style={ContainerStyle}>
+         <Grid >
+           <Paper elevation={10} style={paperStyle}>
+             <Grid align='center'>
+             <Avatar style={avatarStyle} ><PetsIcon sx={{ fontSize: 80 }}/></Avatar>
+             <h1>Iniciar Sesión</h1>
+             <form>
+               <Grid style={UserStyle}>
+        <FormControl fullWidth>
           <TextField 
             name='user'
             label='Usuario'
@@ -31,7 +48,7 @@ export default function LogIn() {
             variant='standard'
           />
         </FormControl>
-        <FormControl fullWidth sx={{ m: 1 }}>
+        <FormControl fullWidth >
           <TextField 
             name='pass'
             label='Contraseña'
@@ -42,14 +59,29 @@ export default function LogIn() {
             type='password'
           />
         </FormControl>
-        <FormControl fullWidth sx={{ m: 1 }}>
-          <Button type='submit' variant='contained'>Iniciar Sesión</Button>
-        </FormControl>
+        </Grid>
+        
       </form>
-      <div>
-        <p>¿No tienes una cuenta? </p>
-        <Link to='/registro'>Crear una cuenta</Link>
-      </div>
+
+      <Grid style={buttonStyle}>
+        <FormControl>
+          
+          <Button type='submit' variant='outlined' color="secondary"><ArrowForwardIcon/></Button>
+        </FormControl>
+        </Grid>
+
+      <Grid style={NoAccStyle}>
+        <p>¿No tienes una cuenta? <Link to='/registro'>Registrarme</Link> </p>
+      </Grid>
+
+             </Grid>
+
+           </Paper>
+         </Grid>
+
+    
+
+    
     </Container>
   )
 }

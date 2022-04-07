@@ -13,6 +13,9 @@ import PendingAdoptions from './pages/PendingAdoptions';
 import FollowUp from './pages/FollowUp/FollowUp';
 import CrearFU from './pages/FollowUp/CrearFU';
 
+import "./App.css";
+
+
 function App() {
   return (
     <Fragment>
