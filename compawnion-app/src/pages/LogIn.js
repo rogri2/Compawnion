@@ -70,7 +70,7 @@ export default function LogIn() {
         </FormControl>
         </Grid>
 
-      <Grid style={NoAccStyle}>
+      <Grid style={NoAccStyle} align="left">
         <p>¿No tienes una cuenta? <Link to='/registro'>Registrarme</Link> </p>
       </Grid>
 

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-import { TextField, Container, FormControl, Button } from '@mui/material';
+import { TextField, Container, FormControl, Button , Paper, Avatar, Grid} from '@mui/material';
 import { Link } from 'react-router-dom'
+import PetsIcon from '@mui/icons-material/Pets';
+import ArrowForwardIcon  from '@mui/icons-material/ArrowForward';
 
 export default function Registro() {
   const [usuario, setUser] = useState({
@@ -19,9 +21,19 @@ export default function Registro() {
     });
   }
 
+  const ContainerStyle={paddingLeft: "45rem" ,paddingTop:"2rem"}
+  const paperStyle={paddingTop: "10vh" , padding :35, height:'80vh', width:360, margin:"20px auto", borderRadius: "15px"}
+  const avatarStyle ={backgroundColor: 'red', width: 100, height: 100 }
+  const buttonStyle ={paddingTop: "25px"}
+  const NoAccStyle = {paddingTop: "4rem", fontSize: '15px' , color:"grey"}
+  const UserStyle = { paddingTop:"1rem"}
+
   return (
-    <Container>
-      <div>Iniciar Sesión</div>
+
+    <Container style={ContainerStyle}>
+      <Paper elevation={10} style={paperStyle} align='center'>
+      <Avatar style={avatarStyle} ><PetsIcon sx={{ fontSize: 80 }}/></Avatar>
+      <h1>Iniciar Sesión</h1>
       <form>
         <FormControl fullWidth sx={{ m: 1 }}>
           <TextField 
@@ -65,14 +77,23 @@ export default function Registro() {
             type='password'
           />
         </FormControl>
-        <FormControl fullWidth sx={{ m: 1 }}>
-          <Button type='submit' variant='contained'>Registrarse</Button>
-        </FormControl>
+
+       
+
       </form>
-      <div>
-        <p>¿Ya tienes una cuenta? </p>
-        <Link to='/login'>Iniciar Sesión</Link>
+
+      <Grid style={buttonStyle} align="right">
+        <FormControl>
+          <h4>Registrarme</h4>
+          <Button type='submit' variant='outlined' color="secondary"><ArrowForwardIcon/></Button>
+        </FormControl>
+        </Grid>
+
+      <div style={NoAccStyle} align="left">
+        <p>FCFM 2022</p>
+       
       </div>
+      </Paper>
     </Container>
   )
 }
