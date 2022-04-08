@@ -1,5 +1,4 @@
 import { createTheme } from "@mui/material/styles";
-import { teal, amber } from "@mui/material/colors";
 
 const theme = createTheme({
     typography: {
@@ -15,7 +14,8 @@ const theme = createTheme({
         },
         button: {
             main: "#F69C9B",
-            contrastText: "#FFFFFF"
+            contrastText: "#FFFFFF",
+            borderRadius: 48
         },
         background: {
             paper: "#F8ECC4"
