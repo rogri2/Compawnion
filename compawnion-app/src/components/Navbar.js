@@ -22,6 +22,9 @@ export default function Navbar() {
             <Button component={Link} to="/perfil/:id" color='inherit' size="large">
               Perfil
             </Button>
+            <Button component={Link} to="/follow-up" color='inherit' size="large">
+              Follow Up
+            </Button>
             <Button component={Link} to="/busqueda" color='inherit' size="large">
               Buscar
             </Button>
