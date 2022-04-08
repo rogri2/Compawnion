@@ -13,10 +13,10 @@ export default function Navbar() {
     <Fragment>  
         <AppBar position='fixed' elevation='0'>
           <Toolbar>
-            <Typography variant='h5' component={Link} to="/" sx={{flexGrow: 1, textDecoration: "none", boxShadow: "none", color: "inherit" , fontFamily: "'Nanum Pen Script', 'cursive'", fontSize: '40px'}}>
+            <Typography variant='h5' component={Link} to="/" align='left' sx={{textDecoration: "none", boxShadow: "none", color: "inherit" , fontFamily: "'Nanum Pen Script', 'cursive'", fontSize: '40px'}}>
               COMPAWNION
             </Typography>
-            <Button component={Link} to="/" color='inherit' size="large">
+            <Button component={Link} to="/" color='inherit' size="large" sx={{marginLeft: "auto"}}>
               Home
             </Button>
             <Button component={Link} to="/perfil/:id" color='inherit' size="large">
