@@ -3,7 +3,7 @@ import { Card, CardActions, CardContent, CardMedia, Button, Typography, Containe
 import { makeStyles } from '@mui/styles';
 import { maxWidth, width } from '@mui/system';
 
-const profileCardStyle = {position:"relative",top: '5vh' , maxWidth: '90rem'}
+const profileCardStyle = {position:"relative",top: '5vh' , maxWidth: '90rem', paddingBottom: '30px'}
 const BackDrop = { width:'160%', height:'550px', position:"absolute", display:"flex", flexDirection: 'cloumn', borderRadius: '50%', backgroundColor: 'green', backgroundColor: 'linear-gradient(58deg, (pink)20%, (green)100%)' }
 const ImgStyle = { width:'25%', height:'240px'}
 const InfoStyle = { position:"relative", flex:'1 0 auto'} 
@@ -33,7 +33,7 @@ export default function ImgMediaCard() {
       </CardContent>
       </Box>
 
-      <Box sx={{ display: 'flex', alignItems: 'center' , pt: 10, pl: 10}}>
+      <Box sx={{ display: 'flex', alignItems: 'center' , pt: 15}}>
       <CardActions>
       <Button
                
@@ -75,6 +75,20 @@ export default function ImgMediaCard() {
                 disableElevation
             >
                 Paws
+            </Button>
+
+            <Button
+              
+                variant="contained"
+                color="button"
+                sx={{
+                        marginLeft: "auto",
+                        fontFamily: "'Baloo Da 2', 'cursive'",
+                        fontSize: "20px"
+                    }}
+                disableElevation
+            >
+                Bookmarks
             </Button>
 
       </CardActions>

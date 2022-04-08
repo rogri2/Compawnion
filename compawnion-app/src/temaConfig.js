@@ -17,6 +17,14 @@ const theme = createTheme({
             main: "#F69C9B",
             contrastText: "#FFFFFF"
         },
+        editar: {
+            main: "#42a5f5",
+            contrastText: "#FFFFFF"
+        },
+        borrar: {
+            main: "#d32f2f",
+            contrastText: "#FFFFFF"
+        },
         background: {
             paper: "#F8ECC4"
         }
