@@ -6,10 +6,6 @@ const theme = createTheme({
         fontFamily: "'Numans', 'sans-serif'",
         button: {
             textTransform: 'none'
-        },
-        h5: {
-            fontFamily: "'Nanum Pen Script', 'cursive'",
-            fontSize: "40px"
         }
     },
     palette: {
