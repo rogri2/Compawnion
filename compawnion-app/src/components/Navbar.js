@@ -13,8 +13,8 @@ export default function Navbar() {
     <Fragment>  
         <AppBar position='fixed' elevation='0'>
           <Toolbar>
-            <Typography variant='h5' component="div" sx={{flexGrow: 1}}>
-              Compawnion
+            <Typography variant='h5' component={Link} to="/" sx={{flexGrow: 1, textDecoration: "none", boxShadow: "none", color: "inherit"}}>
+              COMPAWNION
             </Typography>
             <Button component={Link} to="/" color='inherit' size="large">
               Home
