@@ -29,8 +29,8 @@ export default function Navbar() {
             <Button component={Link} to="/busqueda" color='inherit' size="large">
               Buscar
             </Button>
-            <Button component={Link} to="/" color='inherit' size="large">
-              Sign Out
+            <Button component={Link} to="/login" color='inherit' size="large">
+              Log In
             </Button>
           </Toolbar>
         </AppBar>
