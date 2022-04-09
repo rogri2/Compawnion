@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box, Card, CardHeader, Avatar, CardMedia, CardContent, Typography, CardActions, IconButton, Button, Collapse, TextField } from '@mui/material'
 import { Pets, Bookmark, Comment } from '@mui/icons-material/'
-import { red } from '@mui/material/colors'
 import { styled } from '@mui/styles';
 
 const ExpandMore = styled((props) => {
@@ -24,7 +23,7 @@ export default function MainFollowUpCard() {
     <Card sx={{m:5}}>
         <CardHeader 
             avatar={
-                <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                <Avatar aria-label="recipe">
                     R
                 </Avatar>
             }

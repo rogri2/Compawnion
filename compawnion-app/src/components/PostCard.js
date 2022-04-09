@@ -2,14 +2,13 @@ import React from 'react'
 import { Link } from "react-router-dom";
 import { Card, CardHeader, Avatar, CardMedia, CardContent, Typography, CardActions, IconButton, Button } from '@mui/material'
 import { Pets, Bookmark, Comment } from '@mui/icons-material/'
-import { red } from '@mui/material/colors'
 
 export default function PostCard() {
   return (
     <Card sx={{m:5}}>
         <CardHeader 
             avatar={
-                <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                <Avatar aria-label="recipe">
                     R
                 </Avatar>
             }

@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
 
 import theme from './temaConfig'
 
@@ -22,6 +23,7 @@ import CrearFU from './pages/FollowUp/CrearFU';
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Fragment>
         <Navbar />
         <Routes>

@@ -1,6 +1,17 @@
 import { createTheme } from "@mui/material/styles";
+import { pink } from '@mui/material/colors'
 
 const theme = createTheme({
+    components: {
+        MuiAvatar: {
+            styleOverrides: {
+                root: {
+                    color: "#FFFFFF",
+                    background: pink[400]
+                }
+            }
+        }
+    },
     typography: {
         fontFamily: "'Numans', 'sans-serif'",
         button: {
@@ -26,7 +37,8 @@ const theme = createTheme({
             contrastText: "#FFFFFF"
         },
         background: {
-            paper: "#F8ECC4"
+            paper: "#F8ECC4",
+            default: "#00ACB8"
         }
     },
     shape: {
