@@ -36,7 +36,7 @@ function App() {
             <Route exact path="/mascota/:id" element={ <Mascota /> } />
 
             <Route exact path="/follow-up" element={ <FollowUp /> } />
-            <Route exact path="/follow-up/crear" element={ <CrearFU /> } />
+            <Route exact path="/follow-up/crear/:id" element={ <CrearFU /> } />
         </Routes>
       </Fragment>
     </ThemeProvider>
