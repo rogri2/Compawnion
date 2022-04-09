@@ -1,5 +1,10 @@
 import React from 'react'
-import { Box, Button, Typography, Grid, Container, Card, TextField, CardContent, FormControl, FormLabel, FormControlLabel, RadioGroup, Radio, NativeSelect, InputLabel } from '@mui/material';
+import { Box, Button, Typography, Grid, Container, Card, TextField, CardContent, FormControl, FormLabel, FormControlLabel, RadioGroup, Radio, NativeSelect, InputLabel, FormGroup } from '@mui/material';
+import { styled } from '@mui/styles';
+
+const Input = styled('input')({
+  display: 'none',
+});
 
 export default function Publish() {
   return (
@@ -74,9 +79,7 @@ export default function Publish() {
               <Grid item>
                 <FormControl>
                   <InputLabel variant='standard'>Tamaño</InputLabel>
-                  <NativeSelect
-                    defaultValue={"m"}
-                  >
+                  <NativeSelect defaultValue={"m"}>
                     <option value={"s"}>Chico</option>
                     <option value={"m"}>Mediano</option>
                     <option value={"b"}>Grande</option>
@@ -95,19 +98,21 @@ export default function Publish() {
                 />
               </Grid>
               <Grid xs={12} sm={12} item>
-                <Box textAlign='center'>
-                  <Button
-                    type="file"
-                    variant="contained"
-                    color="button"
-                    align="center"
-                    sx={{
-                      m:1,
-                      width: '125px',
-                      fontFamily: "'Baloo Da 2', 'cursive'",
-                      fontSize: "20px"
-                    }}
-                  >Subir Imágen</Button>
+                <Box textAlign='center'>  
+                  <label htmlFor='button-file'>
+                    <Input accept="image/*" id="button-file" type="file" required />
+                    <Button
+                      component="span"
+                      variant="contained"
+                      color="button"
+                      sx={{
+                        m:1,
+                        width: '200px',
+                        fontFamily: "'Baloo Da 2', 'cursive'",
+                        fontSize: "20px"
+                      }}
+                    >Subir Imágen</Button>
+                  </label>
                 </Box>
               </Grid>
               <Grid xs={12} sm={12} item>
@@ -116,14 +121,13 @@ export default function Publish() {
                     type="submit"
                     variant="contained"
                     color="button"
-                    align="center"
                     sx={{
                       m:1,
-                      width: '125px',
+                      width: '250px',
                       fontFamily: "'Baloo Da 2', 'cursive'",
                       fontSize: "20px"
                     }}
-                  >Subir</Button>
+                  >Poner en adopción</Button>
                 </Box>
               </Grid>
             </Grid>
