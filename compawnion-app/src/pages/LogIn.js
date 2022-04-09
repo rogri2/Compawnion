@@ -78,10 +78,6 @@ export default function LogIn() {
 
            </Paper>
          </Grid>
-
-    
-
-    
     </Container>
   )
 }
