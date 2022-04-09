@@ -14,6 +14,7 @@ import LogIn from './pages/LogIn';
 import Publish from './pages/Publish';
 import AdoptFormat from './pages/AdoptFormat';
 import PendingAdoptions from './pages/PendingAdoptions';
+import Mascota from './pages/Mascota';
 
 import FollowUp from './pages/FollowUp/FollowUp';
 import CrearFU from './pages/FollowUp/CrearFU';
@@ -32,6 +33,7 @@ function App() {
             <Route exact path="/publicar" element={ <Publish /> } />
             <Route exact path="/formato-adopcion" element={ <AdoptFormat /> } />
             <Route exact path="/adopciones" element={ <PendingAdoptions /> } />
+            <Route exact path="/mascota/:id" element={ <Mascota /> } />
 
             <Route exact path="/follow-up" element={ <FollowUp /> } />
             <Route exact path="/follow-up/crear" element={ <CrearFU /> } />

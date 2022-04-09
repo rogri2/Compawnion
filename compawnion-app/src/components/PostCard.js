@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import { Card, CardHeader, Avatar, CardMedia, CardContent, Typography, CardActions, IconButton, Button } from '@mui/material'
-import { Pets, Bookmark } from '@mui/icons-material/'
+import { Pets, Bookmark, Comment } from '@mui/icons-material/'
 import { red } from '@mui/material/colors'
 
 export default function PostCard() {
@@ -30,6 +30,9 @@ export default function PostCard() {
         <CardActions disableSpacing>
             <IconButton aria-label="like">
                 <Pets />
+            </IconButton>
+            <IconButton aria-label="bookmark" component={Link} to="/mascota/:id">
+                <Comment />
             </IconButton>
             <IconButton aria-label="bookmark">
                 <Bookmark />
