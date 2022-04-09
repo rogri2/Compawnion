@@ -1,5 +1,6 @@
 import React, { Fragment, useState }  from 'react'
-import { Card, TextField, CardActions, CardContent, CardMedia, Button, Typography, Container, Avatar, Grid, Divider, Box, InputLabel, MenuItem , FormControl  } from '@mui/material'
+import { Card, TextField, CardActions, CardContent, CardMedia, Button, Typography, Container, Avatar, Grid, Divider, Box, InputLabel, MenuItem , FormControl, IconButton  } from '@mui/material'
+import SearchIcon     from '@mui/icons-material/Search';
 import { makeStyles } from '@mui/styles';
 import { maxWidth, width } from '@mui/system';
 import Select, { SelectChangeEvent } from '@mui/material/Select'
@@ -102,6 +103,14 @@ export default function ImgMediaCard() {
           <MenuItem value={20}>Mediano</MenuItem>
           <MenuItem value={30}>Grande</MenuItem>
         </Select>
+
+        
+      </FormControl>
+
+      <FormControl variant="standard" sx={{ m: 3, minWidth: 10, paddingTop:'2px' }}>
+      <IconButton>
+            <SearchIcon />
+      </IconButton>
       </FormControl>
 
       </CardContent>
