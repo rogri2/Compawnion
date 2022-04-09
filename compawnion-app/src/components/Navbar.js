@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react'
 import { Link } from "react-router-dom";
-import { Button, AppBar, Toolbar, Typography } from '@mui/material'
+import { Button, AppBar, Toolbar, Typography, IconButton } from '@mui/material'
 import { makeStyles } from '@mui/styles';
+import { AddCircle } from '@mui/icons-material';
 
 const useStyles = makeStyles(theme => ({
   offset: theme.mixins.toolbar
@@ -16,9 +17,9 @@ export default function Navbar() {
             <Typography variant='h5' component={Link} to="/" align='left' sx={{textDecoration: "none", boxShadow: "none", color: "inherit" , fontFamily: "'Nanum Pen Script', 'cursive'", fontSize: '40px'}}>
               COMPAWNION
             </Typography>
-            <Button component={Link} to="/" color='inherit' size="large" sx={{marginLeft: "auto"}}>
-              Home
-            </Button>
+            <IconButton aria-label="mascota" component={Link} color="inherit" to="/publicar" sx={{marginLeft: "auto"}}>
+                <AddCircle />
+            </IconButton>
             <Button component={Link} to="/perfil/:id" color='inherit' size="large">
               Perfil
             </Button>
