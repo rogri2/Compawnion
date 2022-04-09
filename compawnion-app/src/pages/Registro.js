@@ -33,7 +33,7 @@ export default function Registro() {
     <Container style={ContainerStyle}>
       <Paper elevation={10} style={paperStyle} align='center'>
       <Avatar style={avatarStyle} ><PetsIcon sx={{ fontSize: 80 }}/></Avatar>
-      <h1>Iniciar Sesión</h1>
+      <h1>Registrarse</h1>
       <form>
         <FormControl fullWidth sx={{ m: 1 }}>
           <TextField 
@@ -85,14 +85,14 @@ export default function Registro() {
       <Grid style={buttonStyle} align="right">
         <FormControl>
           <h4>Registrarme</h4>
-          <Button type='submit' variant='outlined' color="secondary"><ArrowForwardIcon/></Button>
+          <Button type='submit' variant='contained' color="button" disableElevation><ArrowForwardIcon/></Button>
         </FormControl>
         </Grid>
 
-      <div style={NoAccStyle} align="left">
-        <p>FCFM 2022</p>
+      <Grid style={NoAccStyle} align="left">
+        <p>¿Ya tienes una cuenta? <Link to='/login'>Iniciar Sesión</Link> </p>
        
-      </div>
+      </Grid>
       </Paper>
     </Container>
   )

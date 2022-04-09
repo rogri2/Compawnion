@@ -26,7 +26,7 @@ export default function LogIn() {
   const paperStyle={paddingTop: "10vh", padding :20, height:'70vh', width:360, margin:"20px auto", borderRadius: "15px"}
   const avatarStyle ={width: 100, height: 100 }
   const buttonStyle ={paddingTop: "25px"}
-  const NoAccStyle = {paddingTop: "4rem"}
+  const NoAccStyle = {paddingTop: "4rem", fontSize: '15px' , color:"grey"}
   const UserStyle = { paddingTop:"1rem"}
   return (
 
@@ -66,7 +66,7 @@ export default function LogIn() {
       <Grid style={buttonStyle}>
         <FormControl>
           
-          <Button type='submit' variant='outlined' color="secondary"><ArrowForwardIcon/></Button>
+          <Button type='submit' variant='contained' color="button" disableElevation><ArrowForwardIcon/></Button>
         </FormControl>
         </Grid>
 

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Box, Button, Typography, Grid, Container, Card, TextField, CardContent, FormControl, FormLabel, FormControlLabel, RadioGroup, Radio, NativeSelect, InputLabel, FormGroup } from '@mui/material';
+import React, { useState } from 'react'
+import { Box, Button, Typography, Grid, Container, Card, TextField, CardContent, FormControl, FormLabel, FormControlLabel, RadioGroup, Radio, NativeSelect, InputLabel, FormGroup, Select, MenuItem } from '@mui/material';
 import { styled } from '@mui/styles';
 
 const Input = styled('input')({
@@ -77,13 +77,18 @@ export default function Publish() {
                 </FormControl>
               </Grid>
               <Grid item>
-                <FormControl>
+                <FormControl variant="standard" sx={{ minWidth: 150 }}>
                   <InputLabel variant='standard'>Tamaño</InputLabel>
-                  <NativeSelect defaultValue={"m"}>
-                    <option value={"s"}>Chico</option>
-                    <option value={"m"}>Mediano</option>
-                    <option value={"b"}>Grande</option>
-                  </NativeSelect>
+                  <Select
+                    name='SizePet'
+                    label='Pet'
+                    required
+                    defaultValue={"m"}
+                  >
+                    <MenuItem value={"s"}>Chico</MenuItem>
+                    <MenuItem value={"m"}>Mediano</MenuItem>
+                    <MenuItem value={"b"}>Grande</MenuItem>
+                  </Select>
                 </FormControl>
               </Grid>
               <Grid xs={12} sm={12} item>

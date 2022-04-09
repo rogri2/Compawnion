@@ -49,19 +49,7 @@ export default function ImgMediaCard() {
                 Post
             </Button>
 
-            <Button
-                
-                variant="contained"
-                color="button"
-                sx={{
-                        marginLeft: "auto",
-                        fontFamily: "'Baloo Da 2', 'cursive'",
-                        fontSize: "20px"
-                    }}
-                disableElevation
-            >
-                Follow ups
-            </Button>
+
 
             <Button
               
