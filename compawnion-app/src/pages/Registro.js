@@ -23,7 +23,7 @@ export default function Registro() {
 
   const ContainerStyle={paddingLeft: "45rem" ,paddingTop:"2rem"}
   const paperStyle={paddingTop: "10vh" , padding :35, height:'80vh', width:360, margin:"20px auto", borderRadius: "15px"}
-  const avatarStyle ={backgroundColor: 'red', width: 100, height: 100 }
+  const avatarStyle ={width: 100, height: 100 }
   const buttonStyle ={paddingTop: "25px"}
   const NoAccStyle = {paddingTop: "4rem", fontSize: '15px' , color:"grey"}
   const UserStyle = { paddingTop:"1rem"}

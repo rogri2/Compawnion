@@ -24,7 +24,7 @@ export default function LogIn() {
 
   const ContainerStyle={paddingLeft: "45rem" ,paddingTop:"5rem"}
   const paperStyle={paddingTop: "10vh", padding :20, height:'70vh', width:360, margin:"20px auto", borderRadius: "15px"}
-  const avatarStyle ={backgroundColor: 'red', width: 100, height: 100 }
+  const avatarStyle ={width: 100, height: 100 }
   const buttonStyle ={paddingTop: "25px"}
   const NoAccStyle = {paddingTop: "4rem"}
   const UserStyle = { paddingTop:"1rem"}
