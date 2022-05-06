@@ -4,8 +4,6 @@ const app = express();
 const port = 5000;
 require('./models/connection')
 
-const test_router = require('./routes/TestRoutes');
-
 // Rutas
 const comentario_router = require('./routes/ComentarioFURoutes');
 const comentarioFU_router = require('./routes/ComentarioRoutes');
@@ -19,8 +17,6 @@ const usuario_router = require('./routes/UsuarioRoutes');
 const watchlist_router = require('./routes/WatchListRoutes');
 
 app.use(bodyParser.json());
-
-app.use('/api', test_router);
 
 // Uso de rutas
 app.use('/api', comentario_router);
