@@ -58,7 +58,7 @@ exports.usuario_delete = async (req, res) => {
 exports.usuario_getById = async (req, res) => {
     const { id } = req.params;
 
-    const data = await Usuario.findById(id)//.populate('_students');
+    const data = await Usuario.findById(id).populate('_imagens');
 
     if (data && data.isActive == true) {
         res.send(data);

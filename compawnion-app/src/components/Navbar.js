@@ -12,7 +12,7 @@ export default function Navbar() {
   const classes = useStyles()
   return (
     <Fragment>  
-        <AppBar position='fixed' elevation='0'>
+        <AppBar position='fixed' elevation={0}>
           <Toolbar>
             <Typography variant='h5' component={Link} to="/" align='left' sx={{textDecoration: "none", boxShadow: "none", color: "inherit" , fontFamily: "'Nanum Pen Script', 'cursive'", fontSize: '40px'}}>
               COMPAWNION

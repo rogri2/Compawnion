@@ -4,22 +4,61 @@ import { Link } from 'react-router-dom'
 import PetsIcon from '@mui/icons-material/Pets';
 import ArrowForwardIcon  from '@mui/icons-material/ArrowForward';
 
+import { CreateUser } from "../services/UsuarioService";
+
 export default function Registro() {
+  const regex = new RegExp("(?=.{8,})");
+
   const [usuario, setUser] = useState({
     name: "",
     user: "",
     pass: "",
-    val_pass: ""
+    image: null,
   });
 
   const handleOnChangeInput = (e) => {
-    const { name, value } = e.target;
+    const { value, name } = e.target;
 
     setUser({
       ...usuario,
       [name]: value
     });
-  }
+  };
+
+  const handleOnChangeFile = (e) => {
+    console.log("selected file: ", e.target.files[0]?.name);
+
+    setUser({
+      ...usuario,
+      image: e.target.files[0],
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    var file = document.getElementById("file");
+
+    if (!regex.test(usuario.pass)) {
+      alert("La contraseña debe tener más de 8 caracteres.");
+    }
+    else if (file.files.length === 0) {
+      alert("Debe incluir una imagen de perfil.");
+    }
+    else {
+      console.log("la contraseña si es igual");
+  
+      await CreateUser(usuario);
+  
+      setUser({
+        name: "",
+        user: "",
+        pass: "",
+        val_pass: "",
+        image: null,
+      });
+    }
+  };
 
   const ContainerStyle={paddingLeft: "45rem" ,paddingTop:"2rem"}
   const paperStyle={paddingTop: "10vh" , padding :35, height:'80vh', width:360, margin:"20px auto", borderRadius: "15px"}
@@ -34,7 +73,7 @@ export default function Registro() {
       <Paper elevation={10} style={paperStyle} align='center'>
       <Avatar style={avatarStyle} ><PetsIcon sx={{ fontSize: 80 }}/></Avatar>
       <h1>Registrarse</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <FormControl fullWidth sx={{ m: 1 }}>
           <TextField 
             name='name'
@@ -67,27 +106,20 @@ export default function Registro() {
           />
         </FormControl>
         <FormControl fullWidth sx={{ m: 1 }}>
-          <TextField 
-            name='val_pass'
-            label='Validar Contraseña'
-            required
-            value={ usuario.val_pass }
-            onChange={ handleOnChangeInput }
-            variant='standard'
-            type='password'
-          />
+          <Button variant="contained" component="label" color="button">
+            Subir Archivo
+            <input type="file" id="file" hidden onChange={handleOnChangeFile}/>
+          </Button>
         </FormControl>
 
        
 
-      </form>
-
       <Grid style={buttonStyle} align="right">
-        <FormControl>
           <h4>Registrarme</h4>
           <Button type='submit' variant='contained' color="button" disableElevation><ArrowForwardIcon/></Button>
-        </FormControl>
         </Grid>
+      </form>
+
 
       <Grid style={NoAccStyle} align="left">
         <p>¿Ya tienes una cuenta? <Link to='/login'>Iniciar Sesión</Link> </p>

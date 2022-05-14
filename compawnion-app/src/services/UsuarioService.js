@@ -16,3 +16,34 @@ export const GetAllUsers = async () => {
     return err;
   }
 };
+
+export const CreateUser = async (data) => {
+  try {
+    let imageData = new FormData();
+    imageData.set(
+      "archivo",
+      data.image,
+      `${data.image.lastModified}-${data.image.name}`
+    );
+    
+    axios.post("/imagen", imageData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }).then((response) => {
+
+      const userData = {
+        name: data.name,
+        user: data.user,
+        pass: data.pass,
+        _imgUsuario: response.data._id,
+      };
+      
+      axios.post("/usuario", userData);
+    });
+
+  } catch (err) {
+    console.log(err);
+    //return err;
+  }
+};

@@ -1,26 +1,49 @@
 const Imagen = require('../models/ImagenSchema');
+const { Storage } = require("@google-cloud/storage");
+
+const storage = new Storage({
+    projectId: process.env.GCLOUD_PROJECT_ID,
+    keyFilename: process.env.GCLOUD_APPLICATION_CREDENTIALS,
+});
 
 exports.imagen_create = async (req, res) => {
-    const { body } = req;
-    let newImagen = new Imagen(body);
+    try {
+        const { body, file } = req;
+    
+        if (!file) {
+            res.status(400).send({ code: "400", message: "Archivo no cargado." });
+        }
+        
+        const bucket = storage.bucket(process.env.GCLOUD_BUCKET_URL);
+        const blob = bucket.file(file.originalname);
+        const blobStream = blob.createWriteStream({
+            metadata: {
+                contentType: file.mimeType,
+            },
+        });
 
-    await newImagen.save()
-    .then((newObject) => {
-        /*let newWatchList = new WatchList(newUsuario._id);
-        await newWatchList.save()
-        .then(() => {
-            console.log("Se creo la watchlist");
-        })
-        .catch((err) => {
-            console.error("Error!", err);
-            res.send(err.errors);
-        });*/
-        console.log("Success!", newObject);
-    })
-    .catch((err) => {
-        console.error("Error!", err);
-        res.send(err.errors);
-    });
+        blobStream.on("error", (err) => next(err));
+        blobStream.on("finish", async () => {
+            const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURI(blob.name)}?alt=media`
+            let newImagen = new Imagen({ ...body, archivo: publicUrl });
+        
+            await newImagen.save()
+            .then((newObject) => {
+                console.log("Success!", newObject);
+                //res.send({ code: "", message: "" })
+                res.send(newObject);
+            })
+            .catch((err) => {
+                console.error("Error!", err);
+                res.send(err.errors);
+            });
+        });
+
+        blobStream.end(file.buffer);
+    }
+    catch (err) {
+        res.status(500).send({ code: "500", message: "Ocurrió un error inesperado." });
+    }
 };
 
 exports.imagen_update = async (req, res) => {
