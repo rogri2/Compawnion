@@ -28,7 +28,7 @@ function App() {
         <Navbar />
         <Routes>
             <Route exact path="/" element={ <Home /> } />
-            <Route exact path="/perfil/:id" element={ <Profile /> } />
+            <Route exact path="/perfil/:usuarioId" element={ <Profile /> } />
             <Route exact path="/busqueda" element={ <Search /> } />
             <Route exact path="/registro" element={ <Registro /> } />
             <Route exact path="/login" element={ <LogIn /> } />

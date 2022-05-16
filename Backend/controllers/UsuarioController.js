@@ -1,4 +1,4 @@
-const Usuario = require('../models/UsuarioSchema');
+const Usuario = require("../models/UsuarioSchema");
 //const WatchList = require('../models/WatchListSchema');
 
 exports.usuario_create = async (req, res) => {
@@ -7,15 +7,6 @@ exports.usuario_create = async (req, res) => {
 
     await newUsuario.save()
     .then((newObject) => {
-        /*let newWatchList = new WatchList(newUsuario._id);
-        await newWatchList.save()
-        .then(() => {
-            console.log("Se creo la watchlist");
-        })
-        .catch((err) => {
-            console.error("Error!", err);
-            res.send(err.errors);
-        });*/
         console.log("Success!", newObject);
     })
     .catch((err) => {
@@ -56,14 +47,17 @@ exports.usuario_delete = async (req, res) => {
 };
 
 exports.usuario_getById = async (req, res) => {
-    const { id } = req.params;
-
-    const data = await Usuario.findById(id).populate('_imagens');
-
-    if (data && data.isActive == true) {
-        res.send(data);
+    try{
+        const { usuarioId } = req.params;
+        const data = await Usuario.findById(usuarioId).populate('_imgUsuario');
+        if (data) {// && data.isActive == true) {
+            res.send(data);
+        }
+        else {
+            res.send({ message: "No se encontro el usuario ingresado" });
+        }
     }
-    else {
+    catch (err) {
         res.send({ message: "No se encontro el usuario ingresado" });
     }
 };

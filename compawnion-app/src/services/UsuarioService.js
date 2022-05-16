@@ -47,3 +47,18 @@ export const CreateUser = async (data) => {
     //return err;
   }
 };
+
+export const GetById = async (id) => {
+  try {
+    const response = await axios.get(`/usuario/${id}`);
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      return null;
+    }
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+};
