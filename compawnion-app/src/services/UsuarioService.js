@@ -62,3 +62,25 @@ export const GetById = async (id) => {
     return err;
   }
 };
+
+export const LogInService = async (data) => {
+  try {
+    const userData = {
+      user: data.user,
+      pass: data.pass,
+    };
+
+    const response = await axios.post("/login", userData);
+
+    if (response.status === 200) {
+      return response.data;
+    }
+    else {
+      return null;
+    }
+  }
+  catch (err) {
+    console.log(err);
+    return err;
+  }
+};
