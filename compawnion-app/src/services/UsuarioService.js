@@ -6,12 +6,10 @@ export const GetAllUsers = async () => {
 
     if (response.status === 200) {
       return response.data;
-    }
-    else {
+    } else {
       return [];
     }
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
     return err;
   }
@@ -19,32 +17,39 @@ export const GetAllUsers = async () => {
 
 export const CreateUser = async (data) => {
   try {
+    let userData;
     let imageData = new FormData();
     imageData.set(
       "archivo",
       data.image,
       `${data.image.lastModified}-${data.image.name}`
     );
-    
-    axios.post("/imagen", imageData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }).then((response) => {
 
-      const userData = {
-        name: data.name,
-        user: data.user,
-        pass: data.pass,
-        _imgUsuario: response.data._id,
-      };
-      
-      axios.post("/usuario", userData);
-    });
+    await axios
+      .post("/imagen", imageData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        userData = {
+          name: data.name,
+          user: data.user,
+          pass: data.pass,
+          _imgUsuario: response.data._id,
+        };
+      });
 
+    const res = await axios.post("/usuario", userData);
+
+    if (res.status === 200) {
+      return res.data;
+    } else {
+      return null;
+    }
   } catch (err) {
     console.log(err);
-    //return err;
+    return err;
   }
 };
 
@@ -74,12 +79,10 @@ export const LogInService = async (data) => {
 
     if (response.status === 200) {
       return response.data;
-    }
-    else {
+    } else {
       return null;
     }
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
     return err;
   }

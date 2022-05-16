@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   TextField,
   Container,
@@ -16,6 +17,7 @@ import { height } from "@mui/system";
 import { LogInService } from "../services/UsuarioService";
 
 export default function LogIn() {
+  const navigate = useNavigate();
   const [usuario, setUser] = useState({
     user: "",
     pass: "",
@@ -33,15 +35,14 @@ export default function LogIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(usuario);
     const res = await LogInService(usuario);
     if (res.message) {
       alert("Error en usuario o contraseña.");
-    }
-    else {
+    } else {
       alert("Te has logeado con exito");
+      localStorage.setItem("usuario", JSON.stringify(res));
+      navigate("/");
     }
-
   };
 
   const ContainerStyle = { paddingLeft: "45rem", paddingTop: "5rem" };
@@ -91,19 +92,16 @@ export default function LogIn() {
                 </FormControl>
               </Grid>
               <Grid style={buttonStyle}>
-                
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="button"
-                    disableElevation
-                  >
-                    <ArrowForwardIcon />
-                  </Button>
-                
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="button"
+                  disableElevation
+                >
+                  <ArrowForwardIcon />
+                </Button>
               </Grid>
             </form>
-
 
             <Grid style={NoAccStyle} align="left">
               <p>
