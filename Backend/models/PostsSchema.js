@@ -5,17 +5,25 @@ const PostSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "usuario"
     },
-    nombre: {
+    name: {
         type: String,
         required: true,
         
     },
-    bio: {
+    isDog: {
+        type: Boolean,
+        required: true
+    },
+    isMale: {
+        type: Boolean,
+        required: true
+    },
+    size: {
         type: String,
         required: true
     },
-    isDog: {
-        type: Boolean,
+    description: {
+        type: String,
         required: true
     },
     isAdopted: {
@@ -26,21 +34,13 @@ const PostSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
-    _imgPost: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "imagen",
-            //required: true
-        },
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "imagen"
-        },
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "imagen"
-        }
-    ]
+    date: {
+        type: String
+    },
+    _imgPost: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "imagen"
+    }
 });
 
 const Post = mongoose.model("post", PostSchema);
