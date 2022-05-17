@@ -17,6 +17,12 @@ const handleClick = (e) => {
   }
 };
 
+const handleClickPerfil = (e) => {
+  const data = JSON.parse(localStorage.getItem("usuario"));
+  //console.log("usuario", data._id);
+  document.location.href = `/perfil/${data._id}`;
+};
+
 export default function Navbar() {
   const localUser = JSON.parse(localStorage.getItem("usuario"));
 
@@ -44,7 +50,30 @@ export default function Navbar() {
             COMPAWNION
           </Typography>
 
-          {userData !== null ? (
+          {userData === null ? (
+            <>
+              <Button
+                component={Link}
+                to="/follow-up"
+                color="inherit"
+                size="large"
+                sx={{ marginLeft: "auto" }}
+              >
+                Follow Up
+              </Button>
+              <Button
+                component={Link}
+                to="/busqueda"
+                color="inherit"
+                size="large"
+              >
+                Buscar
+              </Button>
+              <Button component={Link} to="/login" color="inherit" size="large">
+                Log In
+              </Button>
+            </>
+          ) : userData.isAdmin === false ? (
             <>
               <IconButton
                 aria-label="mascota"
@@ -56,10 +85,11 @@ export default function Navbar() {
                 <AddCircle />
               </IconButton>
               <Button
-                component={Link}
-                to="/perfil/:id"
+                //component={Link}
+                //to="/perfil/:id"
                 color="inherit"
                 size="large"
+                onClick={handleClickPerfil}
               >
                 Perfil
               </Button>
@@ -93,23 +123,21 @@ export default function Navbar() {
             <>
               <Button
                 component={Link}
-                to="/follow-up"
+                to="/"
                 color="inherit"
                 size="large"
                 sx={{ marginLeft: "auto" }}
               >
-                Follow Up
+                Hola
               </Button>
               <Button
                 component={Link}
-                to="/busqueda"
+                to="/"
                 color="inherit"
                 size="large"
+                onClick={handleClick}
               >
-                Buscar
-              </Button>
-              <Button component={Link} to="/login" color="inherit" size="large">
-                Log In
+                Log Out
               </Button>
             </>
           )}
