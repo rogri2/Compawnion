@@ -39,9 +39,8 @@ export default function LogIn() {
     if (res.message) {
       alert("Error en usuario o contraseña.");
     } else {
-      alert("Te has logeado con exito");
       localStorage.setItem("usuario", JSON.stringify(res));
-      navigate("/");
+      document.location.href = "/";
     }
   };
 
@@ -97,6 +96,7 @@ export default function LogIn() {
                   variant="contained"
                   color="button"
                   disableElevation
+                  //onClick={handleClick}
                 >
                   <ArrowForwardIcon />
                 </Button>
