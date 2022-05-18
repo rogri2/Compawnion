@@ -82,8 +82,26 @@ exports.formato_adopcion_getById = async (req, res) => {
 };
 
 exports.formato_adopcion_getAll = async (req, res) => {
-  // Para regresar varios, en el School.find() agregar un objeto como parámetro
-  const data = await FormatoAdopcion.find({ isAdopted: false, isActive: true });
+  try {
+    const data = await FormatoAdopcion.find({
+      isApproved: false,
+      isActive: true,
+    }).sort({ _id: -1 })
+    .populate({
+      path: "_usuario",
+      select: "name"
+    })
+    .populate({
+      path: "_post",
+      select: "name"
+    });
 
-  res.send(data);
+    if (data) {
+      res.send(data);
+    } else {
+      res.send({ message: "No hay solicitudes de adopciones." });
+    }
+  } catch (err) {
+    res.send({ message: "No hay solicitudes de adopciones." });
+  }
 };

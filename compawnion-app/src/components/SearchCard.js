@@ -71,10 +71,10 @@ export default function ImgMediaCard(props) {
       <Card sx={{ display: "flex" }}>
         <Box sx={{ display: "flex", flexDirection: "column", pt: 2 }}>
           <CardContent>
-            <Typography gutterBottom variant="h4" component="div">
+            <Typography gutterBottom variant="h4" component="div" align="center">
               ADOPTA UNA MASCOTA
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" color="text.secondary" align="center">
               Todas estas mascotas están actualmente buscando una familia que
               les de un hogar
             </Typography>

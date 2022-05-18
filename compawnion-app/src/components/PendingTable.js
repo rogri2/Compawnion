@@ -1,361 +1,134 @@
-import React, { Fragment, useState}  from 'react'
-import PropTypes from 'prop-types';
-import { Box , Table , TableBody , TableCell , TableContainer , TableHead , Typography, TablePagination, TableRow , TableSortLabel , Toolbar ,  Paper , Checkbox  , IconButton ,  Tooltip , FormControlLabel , Switch } from '@mui/material'
-import DeleteIcon  from '@mui/icons-material/Delete';
-import FilterListIcon   from '@mui/icons-material/FilterList';
-import CheckIcon    from '@mui/icons-material/Check';
-import { makeStyles } from '@mui/styles';
-import { maxWidth, width } from '@mui/system';
-import Select, { SelectChangeEvent } from '@mui/material/Select'
-import { visuallyHidden } from '@mui/utils'
+import React, { Fragment, useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  Typography,
+  TablePagination,
+  TableRow,
+  TableSortLabel,
+  Toolbar,
+  Paper,
+  Checkbox,
+  IconButton,
+  Tooltip,
+  FormControlLabel,
+  Switch,
+  Button,
+  Card,
+  Modal,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import CheckIcon from "@mui/icons-material/Check";
+import { makeStyles } from "@mui/styles";
+import { maxWidth, width } from "@mui/system";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { visuallyHidden } from "@mui/utils";
 
-//Styles
+import { GetAdoption } from "../services/AdoptService";
 
-
-
-function createData(name, pet, file) {
-  return {
-    name,
-    pet,
-    file
-  };
-}
-
-const rows = [
-  createData('Emiliano', 'Nawini', 'file',),
-  createData('Rodrigo', 'Jackson', 'file',),
-  createData('Victor', 'Princesa', 'file',),
-  createData('Diego', 'Perrita', 'file',),
-  createData('Jessica', 'Firulais', 'file',),
-  createData('Gerardo', 'Canelo', 'file',),
-  createData('Angel', 'Perro', 'file',),
-  createData('Emilio', 'Nawini', 'file',),
-  createData('Rogri2', 'Jackson', 'file',),
-  createData('Alex', 'Tracer', 'file',)
-];
-
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function getComparator(order, orderBy) {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-// This method is created for cross-browser compatibility, if you don't
-// need to support IE11, you can use Array.prototype.sort() directly
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-}
-
-const headCells = [
-  {
-    id: 'name',
-    numeric: false,
-    disablePadding: true,
-    label: 'Nombre de la persona',
-  },
-  {
-    id: 'pet',
-    numeric: true,
-    disablePadding: false,
-    label: 'Nombre de la mascota',
-  },
-  {
-    id: 'file',
-    numeric: true,
-    disablePadding: false,
-    label: 'Formato de adopción',
-  },
-];
-
-function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
-    props;
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
-
-  return (
-    <TableHead>
-      <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              'aria-label': 'select all desserts',
-            }}
-          />
-        </TableCell>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
-
-EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
 };
 
-const EnhancedTableToolbar = (props) => {
-  const { numSelected } = props;
+export default function AdoptionTable() {
+  const [adoptions, setAdoptions] = useState([]);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
 
-  return (
-    <Toolbar
-      sx={{
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-        ...(numSelected > 0 && {
-          bgcolor: (theme) =>
-            makeStyles(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-        }),
-      }}
-    >
-      {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: '1 1 100%' }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected} Seleccionados
-        </Typography>
-      ) : (
-        <Typography
-          sx={{ flex: '1 1 100%' }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          Publicaciones pendientes
-        </Typography>
-      )}
+  const handleClose = () => setOpen(false);
 
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
-
-{numSelected > 0 ? (
-        <Tooltip title="AddPost">
-          <IconButton>
-            <CheckIcon  />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-           
-          </IconButton>
-        </Tooltip>
-      )}
-
-
-
-    </Toolbar>
-  );
-};
-
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-};
-
-export default function EnhancedTable() {
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('pet');
-  const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
-
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
+  useEffect(() => {
+    async function fetchData() {
+      const data = await GetAdoption();
+      if (data.message) {
+        setAdoptions(null);
+      } else {
+        setAdoptions(data);
+      }
     }
-    setSelected([]);
+    fetchData();
+  }, []);
+
+  const handleAceptar = (e) => {
+    alert("Codigo para aceptar la solicitud.");
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      );
-    }
-
-    setSelected(newSelected);
+  const handleDenegar = (e) => {
+    alert("Codigo para denegar la solicitud.");
   };
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
-
-  const isSelected = (name) => selected.indexOf(name) !== -1;
-
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
-  return (
-    <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-          >
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
-            <TableBody>
-              {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-                 rows.slice().sort(getComparator(order, orderBy)) */}
-              {stableSort(rows, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
-                  const labelId = `enhanced-table-checkbox-${index}`;
-
-                  return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.name)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.name}
-                      selected={isItemSelected}
+  return adoptions ? (
+    <Card>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell align="center"><b>Solicitante</b></TableCell>
+              <TableCell align="center"><b>Mascota</b></TableCell>
+              <TableCell align="center"><b>Solicitud</b></TableCell>
+              <TableCell align="center"><b>Decisión</b></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {adoptions.map((adoption, index) => {
+              return (
+                  <TableRow key={index}>
+                    <TableCell align="center">
+                      {adoption._usuario.name}
+                    </TableCell>
+                    <TableCell align="center">{adoption._post.name}</TableCell>
+                    <TableCell align="center">
+                      <IconButton onClick={handleOpen}>
+                        <FilterListIcon/>
+                      </IconButton>
+                    </TableCell>
+                    <TableCell align="center">
+                      <IconButton onClick={handleAceptar}>
+                        <CheckIcon />
+                      </IconButton>
+                      <IconButton onClick={handleDenegar}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                    <Modal
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
                     >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            'aria-labelledby': labelId,
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="right">{row.pet}</TableCell>
-                      <TableCell align="right">{row.file}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
-    </Box>
+                      <Box sx={style}>
+                        <Typography variant="h5">{adoption.fullName}</Typography>
+                        <Typography variant="body" align="center">{adoption.correo}</Typography>
+                        <br/>
+                        <Typography variant="body"  align="center">{adoption.telefono}</Typography>
+                        <br/>
+                        <Typography variant="body"  align="center">{adoption.direccion}</Typography>
+                        <br/>
+                        <Typography variant="h6" sx={{m:1}}>{adoption.texto}</Typography>
+                      </Box>
+                    </Modal>
+                  </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Card>
+  ) : (
+    <h1>No hay solicitudes pendientes.</h1>
   );
 }

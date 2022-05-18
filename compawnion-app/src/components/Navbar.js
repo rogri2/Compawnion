@@ -123,12 +123,12 @@ export default function Navbar() {
             <>
               <Button
                 component={Link}
-                to="/"
+                to="/adopciones"
                 color="inherit"
                 size="large"
                 sx={{ marginLeft: "auto" }}
               >
-                Hola
+                Solicitudes
               </Button>
               <Button
                 component={Link}
