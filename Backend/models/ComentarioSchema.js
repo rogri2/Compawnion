@@ -16,6 +16,9 @@ const ComentarioSchema = new mongoose.Schema({
         required: true,
         maxlength: 120
     },
+    date: {
+        type: String
+    },
     isActive: {
         type: Boolean,
         default: true

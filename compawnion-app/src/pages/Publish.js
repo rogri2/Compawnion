@@ -34,17 +34,9 @@ export default function Publish() {
     isMale: true,
     size: "m",
     description: "",
+    date: "",
     image: null,
   });
-
-  /*useEffect(() => {
-    if(localUser !== null){
-      setPet({
-        ...pet,
-        user: localUser._id
-      });
-    }
-  });*/
 
   const handleOnChangeInput = (e) => {
     const { value, name } = e.target;
