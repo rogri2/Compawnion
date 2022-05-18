@@ -1,24 +1,38 @@
-import React from 'react'
-import { Avatar, Box, Button, Typography, Grid, Container, Card, TextField, CardContent, CardHeader } from '@mui/material';
-import { Comment } from '@mui/icons-material';
+import React from "react";
+import {
+  Avatar,
+  Box,
+  Button,
+  Typography,
+  Grid,
+  Container,
+  Card,
+  TextField,
+  CardContent,
+  CardHeader,
+} from "@mui/material";
+import { Comment } from "@mui/icons-material";
 
-export default function CommentComponent() {
+export default function CommentComponent(props) {
+  const comment = props.comment;
+
   return (
-    <Card sx={{m:5}}>
-        <CardHeader 
-            avatar={
-                <Avatar aria-label="recipe">
-                    R
-                </Avatar>
-            }
-            title="Usuario"
-            subheader="04 de Abril de 2022"
-        />
-        <CardContent>
-            <Typography variant="body2">
-                sdfkjghsdf skdjfhglksdjfhg lsdkjfgh lksdjfhg lksjdfhg lksjdfh lskdjfhg lsdkjfh glskdjfh glskdjf glskdjf ghlskdjfh glksdjf hglksjd fhg
-            </Typography>
-        </CardContent>
+    <Card sx={{ m: 5 }}>
+      <CardHeader
+        avatar={
+          <Avatar
+            aria-label="recipe"
+            src={comment._usuario._imgUsuario.archivo}
+          >
+            R
+          </Avatar>
+        }
+        title={comment._usuario.name}
+        subheader={comment.date}
+      />
+      <CardContent>
+        <Typography variant="body2">{comment.texto}</Typography>
+      </CardContent>
     </Card>
-  )
+  );
 }

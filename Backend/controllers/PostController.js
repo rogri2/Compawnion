@@ -59,12 +59,12 @@ exports.post_getById = async (req, res) => {
       .populate({ path: "_imgPost", select: "archivo" })
       .populate({
         path: "_usuario",
+        select: "_imgUsuario",
         populate: {
           path: "_imgUsuario",
           select: "archivo",
         },
-        select: "_imgUsuario",
-      }); //.populate('_students');
+      });
 
     if (data && data.isActive == true) {
       res.send(data);

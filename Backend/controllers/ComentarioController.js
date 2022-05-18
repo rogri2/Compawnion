@@ -68,8 +68,27 @@ exports.comentario_getById = async (req, res) => {
 };
 
 exports.comentario_getAll = async (req, res) => {
-  const { post } = req.params;
-  const data = await Comentario.find({ _post: post, isActive: true });
+  try {
+    const { postId } = req.params;
 
-  res.send(data);
+    const data = await Comentario.find({
+      _post: postId,
+      isActive: true,
+    }).populate({
+      path: "_usuario",
+      select: "_imgUsuario name",
+      populate: {
+        path: "_imgUsuario",
+        select: "archivo",
+      },
+    });
+
+    if (data) {
+      res.send(data);
+    } else {
+      res.send({ message: "No se encontraron comentarios de ese post." });
+    }
+  } catch (err) {
+    res.send({ message: "No se encontraron comentarios de ese post." });
+  }
 };

@@ -6,10 +6,12 @@ import MainPostCard from '../components/MainPostCard';
 import CommentComponent from '../components/CommentComponent';
 
 import { GetPostById } from '../services/PetService';
+import { GetCommentsFromPost } from '../services/CommentService';
 
 export default function Mascota() {
   const { postId } = useParams();
   const [post, setPost] = useState();
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -24,14 +26,33 @@ export default function Mascota() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    async function fetchComments() {
+      const dataComm = await GetCommentsFromPost(postId);
+      if (dataComm.message) {
+        setComments(null);
+      }
+      else {
+        setComments(dataComm);
+      }
+    }
+    fetchComments();
+  }, []);
+
 
   return post ? (
     <Container>
         <MainPostCard post={post}/>
-
-        <CommentComponent />
-        <CommentComponent />
-        <CommentComponent />
+        {comments === null ? (
+          <>
+          </>
+        ) : (
+            comments.map((comment, index) => {
+              return(
+                <CommentComponent key={index} comment={comment} />
+              )
+            })
+        )}
     </Container>
   ) : (
     <h1>Post no encontrado.</h1>
