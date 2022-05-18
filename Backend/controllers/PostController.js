@@ -78,7 +78,7 @@ exports.post_getById = async (req, res) => {
 
 exports.post_getAll = async (req, res) => {
   try {
-    const data = await Post.find({ isActive: true })
+    const data = await Post.find({ isActive: true, isAdopted: false })
       .sort({ _id: -1 })
       .populate({ path: "_imgPost", select: "archivo" })
       .populate({
