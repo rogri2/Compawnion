@@ -78,7 +78,8 @@ exports.post_getById = async (req, res) => {
 
 exports.post_getAll = async (req, res) => {
   try {
-    const data = await Post.find({ isActive: true }).sort({_id:-1})
+    const data = await Post.find({ isActive: true })
+      .sort({ _id: -1 })
       .populate({ path: "_imgPost", select: "archivo" })
       .populate({
         path: "_usuario",
@@ -103,4 +104,260 @@ exports.post_getAllUser = async (req, res) => {
   const data = await Post.find({ isActive: true, _usuario: id });
 
   res.send(data);
+};
+
+exports.post_Search = async (req, res) => {
+  try {
+    const { body } = req;
+    let data;
+    if (
+      body.name === "" &&
+      body.isDog === "" &&
+      body.isMale === "" &&
+      body.size === ""
+    ) {
+      data = await Post.find({
+        isActive: true,
+      })
+        .sort({ _id: -1 })
+        .populate({ path: "_imgPost", select: "archivo" })
+        .populate({
+          path: "_usuario",
+          select: "_imgUsuario",
+          populate: {
+            path: "_imgUsuario",
+            select: "archivo",
+          },
+        });
+    } else if (body.isDog === "" && body.isMale === "" && body.size === "") {
+      data = await Post.find({
+        isActive: true,
+        name: new RegExp(body.name, "i"),
+      })
+        .sort({ _id: -1 })
+        .populate({ path: "_imgPost", select: "archivo" })
+        .populate({
+          path: "_usuario",
+          select: "_imgUsuario",
+          populate: {
+            path: "_imgUsuario",
+            select: "archivo",
+          },
+        });
+    } else if (body.name === "" && body.isMale === "" && body.size === "") {
+      data = await Post.find({
+        isActive: true,
+        isDog: body.isDog,
+      })
+        .sort({ _id: -1 })
+        .populate({ path: "_imgPost", select: "archivo" })
+        .populate({
+          path: "_usuario",
+          select: "_imgUsuario",
+          populate: {
+            path: "_imgUsuario",
+            select: "archivo",
+          },
+        });
+    } else if (body.name === "" && body.isDog === "" && body.size === "") {
+      data = await Post.find({
+        isActive: true,
+        isMale: body.isMale,
+      })
+        .sort({ _id: -1 })
+        .populate({ path: "_imgPost", select: "archivo" })
+        .populate({
+          path: "_usuario",
+          select: "_imgUsuario",
+          populate: {
+            path: "_imgUsuario",
+            select: "archivo",
+          },
+        });
+    } else if (body.name === "" && body.isDog === "" && body.isMale === "") {
+      data = await Post.find({
+        isActive: true,
+        size: body.size,
+      })
+        .sort({ _id: -1 })
+        .populate({ path: "_imgPost", select: "archivo" })
+        .populate({
+          path: "_usuario",
+          select: "_imgUsuario",
+          populate: {
+            path: "_imgUsuario",
+            select: "archivo",
+          },
+        });
+    } else if (body.isMale === "" && body.size === "") {
+      data = await Post.find({
+        isActive: true,
+        name: new RegExp(body.name, "i"),
+        isDog: body.isDog,
+      })
+        .sort({ _id: -1 })
+        .populate({ path: "_imgPost", select: "archivo" })
+        .populate({
+          path: "_usuario",
+          select: "_imgUsuario",
+          populate: {
+            path: "_imgUsuario",
+            select: "archivo",
+          },
+        });
+    } else if (body.isDog === "" && body.size === "") {
+      data = await Post.find({
+        isActive: true,
+        name: new RegExp(body.name, "i"),
+        isMale: body.isMale,
+      })
+        .sort({ _id: -1 })
+        .populate({ path: "_imgPost", select: "archivo" })
+        .populate({
+          path: "_usuario",
+          select: "_imgUsuario",
+          populate: {
+            path: "_imgUsuario",
+            select: "archivo",
+          },
+        });
+    } else if (body.isDog === "" && body.isMale === "") {
+      data = await Post.find({
+        isActive: true,
+        name: new RegExp(body.name, "i"),
+        size: body.size,
+      })
+        .sort({ _id: -1 })
+        .populate({ path: "_imgPost", select: "archivo" })
+        .populate({
+          path: "_usuario",
+          select: "_imgUsuario",
+          populate: {
+            path: "_imgUsuario",
+            select: "archivo",
+          },
+        });
+    } else if (body.name === "" && body.size === "") {
+      data = await Post.find({
+        isActive: true,
+        isMale: body.isMale,
+        isDog: body.isDog,
+      })
+        .sort({ _id: -1 })
+        .populate({ path: "_imgPost", select: "archivo" })
+        .populate({
+          path: "_usuario",
+          select: "_imgUsuario",
+          populate: {
+            path: "_imgUsuario",
+            select: "archivo",
+          },
+        });
+    } else if (body.name === "" && body.isMale === "") {
+      data = await Post.find({
+        isActive: true,
+        isDog: body.isDog,
+        size: body.size,
+      })
+        .sort({ _id: -1 })
+        .populate({ path: "_imgPost", select: "archivo" })
+        .populate({
+          path: "_usuario",
+          select: "_imgUsuario",
+          populate: {
+            path: "_imgUsuario",
+            select: "archivo",
+          },
+        });
+    } else if (body.name === "" && body.isDog === "") {
+      data = await Post.find({
+        isActive: true,
+        isMale: body.isMale,
+        size: body.size,
+      })
+        .sort({ _id: -1 })
+        .populate({ path: "_imgPost", select: "archivo" })
+        .populate({
+          path: "_usuario",
+          select: "_imgUsuario",
+          populate: {
+            path: "_imgUsuario",
+            select: "archivo",
+          },
+        });
+    } else if (body.size === "") {
+      data = await Post.find({
+        isActive: true,
+        name: new RegExp(body.name, "i"),
+        isMale: body.isMale,
+        isDog: body.isDog,
+      })
+        .sort({ _id: -1 })
+        .populate({ path: "_imgPost", select: "archivo" })
+        .populate({
+          path: "_usuario",
+          select: "_imgUsuario",
+          populate: {
+            path: "_imgUsuario",
+            select: "archivo",
+          },
+        });
+    } else if (body.isMale === "") {
+      data = await Post.find({
+        isActive: true,
+        name: new RegExp(body.name, "i"),
+        isDog: body.isDog,
+        size: body.size,
+      })
+        .sort({ _id: -1 })
+        .populate({ path: "_imgPost", select: "archivo" })
+        .populate({
+          path: "_usuario",
+          select: "_imgUsuario",
+          populate: {
+            path: "_imgUsuario",
+            select: "archivo",
+          },
+        });
+    } else if (body.name === "") {
+      data = await Post.find({
+        isActive: true,
+        isMale: body.isMale,
+        isDog: body.isDog,
+        size: body.size,
+      })
+        .sort({ _id: -1 })
+        .populate({ path: "_imgPost", select: "archivo" })
+        .populate({
+          path: "_usuario",
+          select: "_imgUsuario",
+          populate: {
+            path: "_imgUsuario",
+            select: "archivo",
+          },
+        });
+    } else {
+      data = await Post.find({
+        isActive: true,
+        name: new RegExp(body.name, "i"),
+        isMale: body.isMale,
+        isDog: body.isDog,
+        size: body.size,
+      })
+        .sort({ _id: -1 })
+        .populate({ path: "_imgPost", select: "archivo" })
+        .populate({
+          path: "_usuario",
+          select: "_imgUsuario",
+          populate: {
+            path: "_imgUsuario",
+            select: "archivo",
+          },
+        });
+    }
+
+    res.send(data);
+  } catch (err) {
+    res.send({ message: "No se encontró nada en la busqueda." });
+  }
 };

@@ -9,5 +9,6 @@ router.delete("/post/:postId", post_controller.post_delete);
 router.get("/post/:postId", post_controller.post_getById);
 router.get("/post", post_controller.post_getAll);
 router.get("/post/user/:userId", post_controller.post_getAllUser);
+router.post("/search", post_controller.post_Search);
 
 module.exports = router;
