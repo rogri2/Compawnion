@@ -119,8 +119,8 @@ export default function ImgMediaCard(props) {
                   <MenuItem value="">
                     <em>Ambos</em>
                   </MenuItem>
-                  <MenuItem value={false}>Masculino</MenuItem>
-                  <MenuItem value={true}>Femenino</MenuItem>
+                  <MenuItem value={true}>Masculino</MenuItem>
+                  <MenuItem value={false}>Femenino</MenuItem>
                 </Select>
               </FormControl>
 
