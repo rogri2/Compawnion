@@ -52,22 +52,50 @@ exports.post_delete = async (req, res) => {
 };
 
 exports.post_getById = async (req, res) => {
-  const { id } = req.params;
+  try {
+    const { postId } = req.params;
 
-  const data = await Post.findById(id); //.populate('_students');
+    const data = await Post.findById(postId)
+      .populate({ path: "_imgPost", select: "archivo" })
+      .populate({
+        path: "_usuario",
+        populate: {
+          path: "_imgUsuario",
+          select: "archivo",
+        },
+        select: "_imgUsuario",
+      }); //.populate('_students');
 
-  if (data && data.isActive == true) {
-    res.send(data);
-  } else {
+    if (data && data.isActive == true) {
+      res.send(data);
+    } else {
+      res.send({ message: "No se encontro el post ingresado" });
+    }
+  } catch (err) {
     res.send({ message: "No se encontro el post ingresado" });
   }
 };
 
 exports.post_getAll = async (req, res) => {
-  // Para regresar varios, en el School.find() agregar un objeto como parámetro
-  const data = await Post.find({ isActive: true });
-
-  res.send(data);
+  try {
+    const data = await Post.find({ isActive: true })
+      .populate({ path: "_imgPost", select: "archivo" })
+      .populate({
+        path: "_usuario",
+        populate: {
+          path: "_imgUsuario",
+          select: "archivo",
+        },
+        select: "_imgUsuario",
+      });
+    if (data) {
+      res.send(data);
+    } else {
+      res.send({ message: "No hay posts" });
+    }
+  } catch (err) {
+    res.send({ message: "No hay posts" });
+  }
 };
 
 exports.post_getAllUser = async (req, res) => {

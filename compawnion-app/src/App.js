@@ -35,10 +35,10 @@ function App() {
             <Route exact path="/publicar" element={ <Publish /> } />
             <Route exact path="/formato-adopcion" element={ <AdoptFormat /> } />
             <Route exact path="/adopciones" element={ <PendingAdoptions /> } />
-            <Route exact path="/mascota/:id" element={ <Mascota /> } />
+            <Route exact path="/mascota/:postId" element={ <Mascota /> } />
 
             <Route exact path="/follow-up" element={ <FollowUp /> } />
-            <Route exact path="/follow-up/crear/:id" element={ <CrearFU /> } />
+            <Route exact path="/follow-up/crear/:postId" element={ <CrearFU /> } />
         </Routes>
       </Fragment>
     </ThemeProvider>

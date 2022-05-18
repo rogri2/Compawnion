@@ -1,5 +1,35 @@
 import { axiosBase as axios } from "./Config";
 
+export const GetAllPosts = async () => {
+  try {
+    const response = await axios.get("/post");
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      return null;
+    }
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+};
+
+export const GetPostById = async (id) => {
+  try {
+    const response = await axios.get(`/post/${id}`);
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      return null;
+    }
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+};
+
 export const CreatePost = async (data) => {
     try {
       let petData;
@@ -25,6 +55,7 @@ export const CreatePost = async (data) => {
             description: data.description,
             date: data.date,
             _imgPost: response.data._id,
+            _usuario: data.user,
           };
         });
   

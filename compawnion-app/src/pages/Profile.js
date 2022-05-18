@@ -32,6 +32,6 @@ export default function Profile() {
       </Container>
     </Container>
   ) : (
-    <h1>Usuario no registrado</h1>
+    <h1>Usuario no registrado.</h1>
   );
 }
