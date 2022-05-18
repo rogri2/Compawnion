@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Card,
@@ -28,7 +28,10 @@ const ExpandMore = styled((props) => {
 export default function MainPostCard(props) {
   const post = props.post;
 
-  const [expanded, setExpanded] = React.useState(false);
+  const localUser = JSON.parse(localStorage.getItem("usuario"));
+  const [userData, setUserData] = useState(localUser);
+
+  const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -59,21 +62,27 @@ export default function MainPostCard(props) {
         <Typography variant="body2">{post.description}</Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="like">
-          <Pets />
-        </IconButton>
-        <IconButton aria-label="bookmark">
-          <Bookmark />
-        </IconButton>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-          sx={{ marginLeft: "auto" }}
-        >
-          <Comment />
-        </ExpandMore>
+        {userData === null ? (
+          <></>
+        ) : (
+          <>
+            <IconButton aria-label="like">
+              <Pets />
+            </IconButton>
+            <IconButton aria-label="bookmark">
+              <Bookmark />
+            </IconButton>
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+              sx={{ marginLeft: "auto" }}
+            >
+              <Comment />
+            </ExpandMore>
+          </>
+        )}
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
