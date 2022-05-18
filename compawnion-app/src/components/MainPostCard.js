@@ -38,7 +38,8 @@ export default function MainPostCard(props) {
     user: "",
     text: "",
     date: "",
-  })
+  });
+
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
@@ -72,7 +73,7 @@ export default function MainPostCard(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(comment);
+
     if (localUser === null) {
       alert("Necesitas iniciar sesión para poder comentar.");
     }

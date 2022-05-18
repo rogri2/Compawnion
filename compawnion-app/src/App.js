@@ -33,7 +33,7 @@ function App() {
             <Route exact path="/registro" element={ <Registro /> } />
             <Route exact path="/login" element={ <LogIn /> } />
             <Route exact path="/publicar" element={ <Publish /> } />
-            <Route exact path="/formato-adopcion" element={ <AdoptFormat /> } />
+            <Route exact path="/formato-adopcion/:mascotaId" element={ <AdoptFormat /> } />
             <Route exact path="/adopciones" element={ <PendingAdoptions /> } />
             <Route exact path="/mascota/:postId" element={ <Mascota /> } />
 

@@ -4,7 +4,6 @@ exports.comentario_create = async (req, res) => {
   try {
     const { body } = req;
     let newComentario = new Comentario(body);
-    console.log("commentController: ", body);
     await newComentario
       .save()
       .then((newObject) => {

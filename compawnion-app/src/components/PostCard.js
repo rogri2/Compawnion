@@ -67,7 +67,7 @@ export default function PostCard(props) {
             </IconButton>
             <Button
               component={Link}
-              to="/formato-adopcion"
+              to={`/formato-adopcion/${pet._id}`}
               variant="contained"
               color="button"
               sx={{
