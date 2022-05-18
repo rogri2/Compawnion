@@ -10,7 +10,7 @@ export default function Search() {
 
   const handleCallback = async (childData) => {
     const data = await SearchPost(childData);
-    console.log("returned data: ", data);
+
     if (data) {
       setPosts(data);
     } else {
