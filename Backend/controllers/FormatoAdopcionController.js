@@ -49,25 +49,31 @@ exports.formato_adopcion_update = async (req, res) => {
 };
 
 exports.formato_adopcion_delete = async (req, res) => {
-  const { id } = req.params;
-  const { body } = req;
+  try {
+    const { solicitudId } = req.params;
+  
+    const formato_adopciondb = await FormatoAdopcion.findById(solicitudId);
+  
+    if (formato_adopciondb) {
+      // Delete
+      const data = await FormatoAdopcion.findOneAndUpdate(
+        { _id: solicitudId },
+        { isActive: false },
+        { returnOriginal: false }
+      );
 
-  const formato_adopciondb = await FormatoAdopcion.find({
-    _post: body._post,
-    _usuario: body._usuario,
-  });
-
-  if (formato_adopciondb) {
-    // Delete
-    const data = await FormatoAdopcion.findOneAndUpdate(
-      { _id: formato_adopciondb._id },
-      { isActive: false },
-      { returnOriginal: false }
-    );
-    res.send({ message: "Comentario eliminado exitosamente" });
-  } else {
-    // Error msg
-    res.send({ message: "No se encontro el comentario ingresado" });
+      if (data) {
+        res.send(data);
+      }
+      else {
+        res.send({ message: "No se pudo anular la solicitud" });  
+      }
+    } else {
+      res.send({ message: "No se pudo encontrar la solicitud" });
+    }
+  }
+  catch (err) {
+    res.send({ message: "No se pudo anular la solicitud" });
   }
 };
 

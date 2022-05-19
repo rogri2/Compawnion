@@ -29,3 +29,20 @@ export const GetAdoption = async () => {
     return err;
   }
 };
+
+export const UpdateAdoption = async (id) => {
+  try {
+    const res = await axios.delete(`/formato_adopcion/${id}`);
+
+    if (res.status === 200) {
+      return res.data;
+    }
+    else {
+      return null;
+    }
+  }
+  catch (err) {
+    console.log(err);
+    return err;
+  }
+};

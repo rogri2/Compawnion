@@ -31,7 +31,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { visuallyHidden } from "@mui/utils";
 import SolicitudModal from "./SolicitudModal";
 
-import { GetAdoption } from "../services/AdoptService";
+import { GetAdoption, UpdateAdoption } from "../services/AdoptService";
 import { AdoptPet } from "../services/PetService";
 
 export default function AdoptionTable() {
@@ -51,8 +51,6 @@ export default function AdoptionTable() {
   }, []);
 
   const handleAceptar = (e, post, solicitud) => {
-    //alert("Codigo para aceptar la solicitud.");
-    console.log("poreso we", post);
     const data = AdoptPet(post, { isAdopted: true }, solicitud, {
       isApproved: true,
     });
@@ -62,11 +60,18 @@ export default function AdoptionTable() {
       alert("¡Solicitud aceptada!");
       document.location.href = "/adopciones";
     }
-    //document.location.href = "/";
   };
 
-  const handleDenegar = (e) => {
-    alert("Codigo para denegar la solicitud.");
+  const handleDenegar = (e, solicitud) => {
+    const data = UpdateAdoption(solicitud);
+
+    if (data.message) {
+      alert("No se pudo procesar la solictud, intente más tarde.");
+    }
+    else {
+      alert("Solicitud denegada.");
+      document.location.href = "/adopciones";
+    }
   };
 
   return adoptions ? (
@@ -106,7 +111,7 @@ export default function AdoptionTable() {
                     >
                       <CheckIcon />
                     </IconButton>
-                    <IconButton onClick={handleDenegar}>
+                    <IconButton onClick={(e) => handleDenegar(e, adoption._id)}>
                       <DeleteIcon />
                     </IconButton>
                   </TableCell>
