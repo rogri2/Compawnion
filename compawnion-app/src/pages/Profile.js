@@ -5,13 +5,16 @@ import { Container } from "@mui/material";
 import ProfileCard from "../components/ProfileCard";
 import PostCardProfile from "../components/PostCardProfile";
 //import { maxWidth } from '@mui/system';
+import PostCard from "../components/PostCard";
 
 import { GetById } from "../services/UsuarioService";
+import { GetPostsFromBookmark } from "../services/WatchListService";
 
 export default function Profile() {
   const { usuarioId } = useParams();
   const [usuario, setUsuario] = useState();
   const [option, setOption] = useState("");
+  const [bookmark, setBookmark] = useState();
 
   useEffect(() => {
     async function fetchData() {
@@ -22,12 +25,19 @@ export default function Profile() {
         setUsuario(data);
       }
     }
+    async function getBookmarks() {
+      const bmData = await GetPostsFromBookmark(usuarioId);
+      setBookmark(bmData);
+    }
     fetchData();
+    getBookmarks();
   }, []);
 
-  const handleCallback = (childData) => {
+  const handleCallback = async (childData) => {
     setOption(childData);
   };
+
+  async function LoadBookmarks() {}
 
   return usuario ? (
     <Container sx={{ maxWidth: 950 }}>
@@ -42,9 +52,9 @@ export default function Profile() {
             <h1>Paws</h1>
           </>
         ) : option === "bookmarks" ? (
-          <>
-            <h1>Bookmarks</h1>
-          </>
+          bookmark._posts.map((post, index) => {
+            return <PostCard key={index} pet={post} />;
+          })
         ) : (
           <></>
         )}

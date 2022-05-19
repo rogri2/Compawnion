@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Card,
@@ -13,11 +13,41 @@ import {
 } from "@mui/material";
 import { Pets, Bookmark, Comment } from "@mui/icons-material/";
 
+import { UpdateBookmarks, GetBookmark } from "../services/WatchListService";
+
 export default function PostCard(props) {
   const pet = props.pet;
 
   const localUser = JSON.parse(localStorage.getItem("usuario"));
   const [userData, setUserData] = useState(localUser);
+  const [bookmark, setBookmark] = useState({});
+
+  useEffect(() => {
+    async function fetchData() {
+      if (localUser !== null) {
+        const data = await GetBookmark(userData._id);
+        if (data.message) {
+          setBookmark(null);
+        } else {
+          setBookmark(data);
+        }
+      }
+    }
+    fetchData();
+  }, []);
+
+  const handleBookmark = async (e) => {
+    const myBookmarks = bookmark._posts;
+
+    if (!myBookmarks.includes(pet._id)) {
+      myBookmarks.push(pet._id);
+    } else {
+      myBookmarks.splice(myBookmarks.indexOf(pet._id), 1);
+    }
+
+    await UpdateBookmarks(bookmark._id, myBookmarks);
+    window.location.reload();
+  };
 
   return (
     <Card sx={{ m: 5 }}>
@@ -55,7 +85,7 @@ export default function PostCard(props) {
             <IconButton aria-label="like">
               <Pets />
             </IconButton>
-            <IconButton aria-label="bookmark">
+            <IconButton aria-label="bookmark" onClick={handleBookmark}>
               <Bookmark />
             </IconButton>
             <IconButton
