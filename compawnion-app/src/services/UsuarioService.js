@@ -18,7 +18,9 @@ export const GetAllUsers = async () => {
 export const CreateUser = async (data) => {
   try {
     let userData;
+    let dataToSend;
     let imageData = new FormData();
+    let final;
     imageData.set(
       "archivo",
       data.image,
@@ -40,10 +42,18 @@ export const CreateUser = async (data) => {
         };
       });
 
-    const res = await axios.post("/usuario", userData);
+    await axios.post("/usuario", userData)
+    .then((after) => {
+      final = after;
+      dataToSend = {
+        _usuario: after.data._id
+      }
+    });
 
-    if (res.status === 200) {
-      return res.data;
+    await axios.post("/watch_list", dataToSend);
+
+    if (final.status === 200) {
+      return final.data;
     } else {
       return null;
     }

@@ -11,6 +11,7 @@ import { GetById } from "../services/UsuarioService";
 export default function Profile() {
   const { usuarioId } = useParams();
   const [usuario, setUsuario] = useState();
+  const [option, setOption] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -24,10 +25,29 @@ export default function Profile() {
     fetchData();
   }, []);
 
+  const handleCallback = (childData) => {
+    setOption(childData);
+  };
+
   return usuario ? (
     <Container sx={{ maxWidth: 950 }}>
-      <ProfileCard usuario = {usuario} />
+      <ProfileCard usuario={usuario} setPropPadre={handleCallback} />
       <Container>
+        {option === "posts" ? (
+          <>
+            <h1>Posts</h1>
+          </>
+        ) : option === "paws" ? (
+          <>
+            <h1>Paws</h1>
+          </>
+        ) : option === "bookmarks" ? (
+          <>
+            <h1>Bookmarks</h1>
+          </>
+        ) : (
+          <></>
+        )}
         <PostCardProfile />
       </Container>
     </Container>

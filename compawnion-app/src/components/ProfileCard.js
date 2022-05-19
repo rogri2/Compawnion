@@ -37,6 +37,10 @@ const InfoStyle = { position: "relative", flex: "1 0 auto" };
 export default function ImgMediaCard(props) {
   const usuario = props.usuario;
 
+  const handleOnClick = (e, option) => {
+    props.setPropPadre(option)
+  };
+
   return (
     <Container style={profileCardStyle}>
       <Card sx={{ display: "flex" }}>
@@ -68,6 +72,7 @@ export default function ImgMediaCard(props) {
                 fontSize: "20px",
               }}
               disableElevation
+              onClick={(e) => handleOnClick(e, "posts")}
             >
               Post
             </Button>
@@ -80,6 +85,7 @@ export default function ImgMediaCard(props) {
                 fontSize: "20px",
               }}
               disableElevation
+              onClick={(e) => handleOnClick(e, "paws")}
             >
               Paws
             </Button>
@@ -92,6 +98,7 @@ export default function ImgMediaCard(props) {
                 fontSize: "20px",
               }}
               disableElevation
+              onClick={(e) => handleOnClick(e, "bookmarks")}
             >
               Bookmarks
             </Button>
