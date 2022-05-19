@@ -127,6 +127,7 @@ exports.post_Search = async (req, res) => {
     ) {
       data = await Post.find({
         isActive: true,
+        isAdopted: false
       })
         .sort({ _id: -1 })
         .populate({ path: "_imgPost", select: "archivo" })
@@ -141,6 +142,7 @@ exports.post_Search = async (req, res) => {
     } else if (body.isDog === "" && body.isMale === "" && body.size === "") {
       data = await Post.find({
         isActive: true,
+        isAdopted: false,
         name: new RegExp(body.name, "i"),
       })
         .sort({ _id: -1 })
@@ -156,6 +158,7 @@ exports.post_Search = async (req, res) => {
     } else if (body.name === "" && body.isMale === "" && body.size === "") {
       data = await Post.find({
         isActive: true,
+        isAdopted: false,
         isDog: body.isDog,
       })
         .sort({ _id: -1 })
@@ -171,6 +174,7 @@ exports.post_Search = async (req, res) => {
     } else if (body.name === "" && body.isDog === "" && body.size === "") {
       data = await Post.find({
         isActive: true,
+        isAdopted: false,
         isMale: body.isMale,
       })
         .sort({ _id: -1 })
@@ -186,6 +190,7 @@ exports.post_Search = async (req, res) => {
     } else if (body.name === "" && body.isDog === "" && body.isMale === "") {
       data = await Post.find({
         isActive: true,
+        isAdopted: false,
         size: body.size,
       })
         .sort({ _id: -1 })
@@ -201,6 +206,7 @@ exports.post_Search = async (req, res) => {
     } else if (body.isMale === "" && body.size === "") {
       data = await Post.find({
         isActive: true,
+        isAdopted: false,
         name: new RegExp(body.name, "i"),
         isDog: body.isDog,
       })
@@ -217,6 +223,7 @@ exports.post_Search = async (req, res) => {
     } else if (body.isDog === "" && body.size === "") {
       data = await Post.find({
         isActive: true,
+        isAdopted: false,
         name: new RegExp(body.name, "i"),
         isMale: body.isMale,
       })
@@ -233,6 +240,7 @@ exports.post_Search = async (req, res) => {
     } else if (body.isDog === "" && body.isMale === "") {
       data = await Post.find({
         isActive: true,
+        isAdopted: false,
         name: new RegExp(body.name, "i"),
         size: body.size,
       })
@@ -249,6 +257,7 @@ exports.post_Search = async (req, res) => {
     } else if (body.name === "" && body.size === "") {
       data = await Post.find({
         isActive: true,
+        isAdopted: false,
         isMale: body.isMale,
         isDog: body.isDog,
       })
@@ -265,6 +274,7 @@ exports.post_Search = async (req, res) => {
     } else if (body.name === "" && body.isMale === "") {
       data = await Post.find({
         isActive: true,
+        isAdopted: false,
         isDog: body.isDog,
         size: body.size,
       })
@@ -281,6 +291,7 @@ exports.post_Search = async (req, res) => {
     } else if (body.name === "" && body.isDog === "") {
       data = await Post.find({
         isActive: true,
+        isAdopted: false,
         isMale: body.isMale,
         size: body.size,
       })
@@ -297,6 +308,7 @@ exports.post_Search = async (req, res) => {
     } else if (body.size === "") {
       data = await Post.find({
         isActive: true,
+        isAdopted: false,
         name: new RegExp(body.name, "i"),
         isMale: body.isMale,
         isDog: body.isDog,
@@ -314,6 +326,7 @@ exports.post_Search = async (req, res) => {
     } else if (body.isMale === "") {
       data = await Post.find({
         isActive: true,
+        isAdopted: false,
         name: new RegExp(body.name, "i"),
         isDog: body.isDog,
         size: body.size,
@@ -331,6 +344,7 @@ exports.post_Search = async (req, res) => {
     } else if (body.name === "") {
       data = await Post.find({
         isActive: true,
+        isAdopted: false,
         isMale: body.isMale,
         isDog: body.isDog,
         size: body.size,
@@ -348,6 +362,7 @@ exports.post_Search = async (req, res) => {
     } else {
       data = await Post.find({
         isActive: true,
+        isAdopted: false,
         name: new RegExp(body.name, "i"),
         isMale: body.isMale,
         isDog: body.isDog,
