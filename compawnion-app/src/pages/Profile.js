@@ -9,12 +9,14 @@ import PostCard from "../components/PostCard";
 
 import { GetById } from "../services/UsuarioService";
 import { GetPostsFromBookmark } from "../services/WatchListService";
+import { GetLikesFromUser } from "../services/LikeService";
 
 export default function Profile() {
   const { usuarioId } = useParams();
   const [usuario, setUsuario] = useState();
   const [option, setOption] = useState("");
   const [bookmark, setBookmark] = useState();
+  const [like, setLike] = useState();
 
   useEffect(() => {
     async function fetchData() {
@@ -29,15 +31,18 @@ export default function Profile() {
       const bmData = await GetPostsFromBookmark(usuarioId);
       setBookmark(bmData);
     }
+    async function getLikes() {
+      const likeData = await GetLikesFromUser(usuarioId);
+      setLike(likeData);
+    }
     fetchData();
     getBookmarks();
+    getLikes();
   }, []);
 
   const handleCallback = async (childData) => {
     setOption(childData);
   };
-
-  async function LoadBookmarks() {}
 
   return usuario ? (
     <Container sx={{ maxWidth: 950 }}>
@@ -50,15 +55,30 @@ export default function Profile() {
         ) : option === "paws" ? (
           <>
             <h1>Paws</h1>
+            {like.map((post, index) => {
+              if (post.isActive) {
+                if (!post.isAdopted) {
+                  return <PostCard key={index} pet={post._post} />;
+                } else {
+                  return null;
+                }
+              }
+            })}
           </>
         ) : option === "bookmarks" ? (
-          bookmark._posts.map((post, index) => {
-            return <PostCard key={index} pet={post} />;
-          })
+          <>
+            <h1>Bookmarks</h1>
+            {bookmark._posts.map((post, index) => {
+              if (!post.isAdopted) {
+                return <PostCard key={index} pet={post} />;
+              } else {
+                return null;
+              }
+            })}
+          </>
         ) : (
           <></>
         )}
-        <PostCardProfile />
       </Container>
     </Container>
   ) : (

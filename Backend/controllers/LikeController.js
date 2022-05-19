@@ -1,45 +1,62 @@
-const Like = require('../models/LikeSchema');
-
-exports.like_create = async (req, res) => {
-    const { body } = req;
-    let newLike = new Like(body);
-
-    await newLike.save()
-    .then((newObject) => {
-        /*let newWatchList = new WatchList(newUsuario._id);
-        await newWatchList.save()
-        .then(() => {
-            console.log("Se creo la watchlist");
-        })
-        .catch((err) => {
-            console.error("Error!", err);
-            res.send(err.errors);
-        });*/
-        console.log("Success!", newObject);
-    })
-    .catch((err) => {
-        console.error("Error!", err);
-        res.send(err.errors);
-    });
-};
-
-exports.like_update = async (req, res) => {
-    const { body } = req;
-
-    const likedb = await Like.find({ _post: body._post, _usuario: body._usuario });
-
-    if (likedb) {
-        const data = await Like.findOneAndUpdate({ _id: likedb._id }, { isActive: !isActive }, { returnOriginal: false });
-        res.send({ message: "El like se actualizado exitosamente" });
-    }
-    else {
-        res.send({ message: "El like que se intentó actualizar no existe" });
-    }
-};
+const Like = require("../models/LikeSchema");
 
 exports.like_getAll = async (req, res) => {
-    const { id } = req.params; 
-    const data = await Like.find({ _post: id, isActive: true });
+  const { id } = req.params;
+  const data = await Like.find({ _post: id, isActive: true });
 
-    res.send(data);
+  res.send(data);
+};
+
+exports.like_upsert = async (req, res) => {
+  try {
+    const { body } = req;
+
+    const data = await Like.findOneAndUpdate(
+      { _usuario: body._usuario, _post: body._post },
+      [{ $set: { isActive: { $not: "$isActive" } } }],
+      { upsert: true, returnOriginal: false }
+    );
+
+    if (data) {
+      res.send(data);
+    } else {
+      res.send({ message: "No se hizo update al like. " });
+    }
+  } catch (err) {
+    res.send({ message: "Hubo un error con el like." });
+  }
+};
+
+exports.like_getLikedByUser = async (req, res) => {
+  try {
+    const { body } = req;
+
+    const data = await Like.find({ _usuario: body._usuario }).populate({
+      path: "_post",
+      populate: [
+        {
+          path: "_usuario",
+          select: "_imgUsuario",
+          populate: {
+            path: "_imgUsuario",
+            select: "archivo",
+          },
+        },
+        {
+          path: "_imgPost",
+          select: "archivo",
+        },
+      ],
+    });
+
+    if (data) {
+        res.send(data);
+    }
+    else {
+        res.send({ message: "Error al traer posts."});
+    }
+
+  } catch (err) {
+    res.send({ message: "Error en general al traer posts."});
+  }
 };

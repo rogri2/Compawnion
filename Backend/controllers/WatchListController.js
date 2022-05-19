@@ -28,8 +28,7 @@ exports.watch_list_update = async (req, res) => {
     let wlData = {
       _posts: body,
     };
-    console.log("wlData", wlData);
-    console.log("bookmarkId", bookmarkId);
+
     const data = await WatchList.findByIdAndUpdate(bookmarkId, wlData, {
       returnOriginal: false,
     });

@@ -14,6 +14,7 @@ import {
 import { Pets, Bookmark, Comment } from "@mui/icons-material/";
 
 import { UpdateBookmarks, GetBookmark } from "../services/WatchListService";
+import { UpsertLike } from "../services/LikeService";
 
 export default function PostCard(props) {
   const pet = props.pet;
@@ -49,6 +50,22 @@ export default function PostCard(props) {
     window.location.reload();
   };
 
+  const handleLike = async (e) => {
+    const dataToSend = {
+      _usuario: userData._id,
+      _post: pet._id
+    };
+    const like = await UpsertLike(dataToSend);
+
+    if (like.message) {
+      console.log("Error al hacer el like");
+    }
+    else {
+      window.location.reload();
+    }
+
+  };
+
   return (
     <Card sx={{ m: 5 }}>
       <CardHeader
@@ -82,7 +99,7 @@ export default function PostCard(props) {
           </>
         ) : (
           <>
-            <IconButton aria-label="like">
+            <IconButton aria-label="like" onClick={handleLike}>
               <Pets />
             </IconButton>
             <IconButton aria-label="bookmark" onClick={handleBookmark}>
