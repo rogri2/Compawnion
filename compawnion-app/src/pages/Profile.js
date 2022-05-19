@@ -8,8 +8,9 @@ import PostCardProfile from "../components/PostCardProfile";
 import PostCard from "../components/PostCard";
 
 import { GetById } from "../services/UsuarioService";
-import { GetPostsFromBookmark } from "../services/WatchListService";
+import { GetPostsByUser } from "../services/PetService";
 import { GetLikesFromUser } from "../services/LikeService";
+import { GetPostsFromBookmark } from "../services/WatchListService";
 
 export default function Profile() {
   const { usuarioId } = useParams();
@@ -17,6 +18,7 @@ export default function Profile() {
   const [option, setOption] = useState("");
   const [bookmark, setBookmark] = useState();
   const [like, setLike] = useState();
+  const [posts, setPosts] = useState();
 
   useEffect(() => {
     async function fetchData() {
@@ -35,9 +37,14 @@ export default function Profile() {
       const likeData = await GetLikesFromUser(usuarioId);
       setLike(likeData);
     }
+    async function getPosts() {
+      const postsData = await GetPostsByUser(usuarioId);
+      setPosts(postsData);
+    }
     fetchData();
     getBookmarks();
     getLikes();
+    getPosts();
   }, []);
 
   const handleCallback = async (childData) => {
@@ -51,6 +58,9 @@ export default function Profile() {
         {option === "posts" ? (
           <>
             <h1>Posts</h1>
+            {posts.map((post, index) => {
+              return <PostCard key={index} pet={post} />;
+            })}
           </>
         ) : option === "paws" ? (
           <>

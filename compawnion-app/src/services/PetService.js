@@ -106,3 +106,18 @@ export const AdoptPet = async (petId, petData, adoptId, adoptData) => {
     return err;
   }
 };
+
+export const GetPostsByUser = async (id) => {
+  try {
+    const response = await axios.get(`/post/usuario/${id}`);
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      return null;
+    }
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}

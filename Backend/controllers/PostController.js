@@ -109,10 +109,35 @@ exports.post_getAll = async (req, res) => {
 };
 
 exports.post_getAllUser = async (req, res) => {
-  const { id } = req.params;
-  const data = await Post.find({ isActive: true, _usuario: id });
+  try {
+    const { userId } = req.params;
+    const data = await Post.find({
+      isActive: true,
+      _usuario: userId,
+      isAdopted: false,
+    })
+      .populate({ path: "_imgPost", select: "archivo" })
+      .populate({
+        path: "_usuario",
+        select: "_imgUsuario",
+        populate: {
+          path: "_imgUsuario",
+          select: "archivo",
+        },
+      });
+  
+      if (data) {
+        res.send(data);
+      }
+      else {
+        res.send({ message: "Error al traer los posts." });
+      }
+  }
+  catch (err) {
+    res.send({ message: "Error en general al traer los posts." });
+  }
 
-  res.send(data);
+
 };
 
 exports.post_Search = async (req, res) => {
@@ -127,7 +152,7 @@ exports.post_Search = async (req, res) => {
     ) {
       data = await Post.find({
         isActive: true,
-        isAdopted: false
+        isAdopted: false,
       })
         .sort({ _id: -1 })
         .populate({ path: "_imgPost", select: "archivo" })
