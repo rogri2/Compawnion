@@ -19,8 +19,8 @@ export default function AdoptFormat() {
   const localUser = JSON.parse(localStorage.getItem("usuario"));
   const [userData, setUserData] = useState(localUser);
   const [adoption, setAdoption] = useState({
-    post: mascotaId,
-    user: "",
+    _post: mascotaId,
+    _usuario: "",
     fullName: "",
     correo: "",
     telefono: "",
@@ -41,7 +41,7 @@ export default function AdoptFormat() {
     if (userData !== null) {
       setAdoption({
         ...adoption,
-        user: userData._id,
+        _usuario: userData._id,
       });
     }
   };

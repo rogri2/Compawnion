@@ -87,3 +87,22 @@ export const SearchPost = async (data) => {
     return err;
   }
 };
+
+export const AdoptPet = async (petId, petData, adoptId, adoptData) => {
+  try {
+    await axios.put(`/post/${petId}`, petData);
+
+    const res = await axios.put(`/formato_adopcion/${adoptId}`, adoptData);
+
+    if (res.status === 200) {
+      return res.data;
+    }
+    else {
+      return null;
+    }
+  }
+  catch (err) {
+    console.log(err);
+    return err;
+  }
+};

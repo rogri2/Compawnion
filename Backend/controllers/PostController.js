@@ -21,18 +21,27 @@ exports.post_create = async (req, res) => {
 };
 
 exports.post_update = async (req, res) => {
-  const { id } = req.params;
-  const { body } = req;
+  try {
+    const { postId } = req.params;
+    const { body } = req;
 
-  const postdb = await Post.findById(id);
+    const postdb = await Post.findById(postId);
 
-  if (postdb) {
-    const data = await Post.findOneAndUpdate({ _id: id }, body, {
-      returnOriginal: false,
-    });
-    res.send({ message: "El post se actualizado exitosamente" });
-  } else {
-    res.send({ message: "El post que se intentó actualizar no existe" });
+    if (postdb) {
+      const data = await Post.findOneAndUpdate({ _id: postId }, body, {
+        returnOriginal: false,
+      });
+
+      if (data) {
+        res.send(data);
+      } else {
+        res.send({ message: "No se pudo actualizar el post." });
+      }
+    } else {
+      res.send({ message: "No se encontró el post a actualizar." });
+    }
+  } catch (err) {
+    res.send({ message: "No se pudo actualizar el post." });
   }
 };
 
