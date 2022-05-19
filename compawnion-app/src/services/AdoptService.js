@@ -46,3 +46,20 @@ export const UpdateAdoption = async (id) => {
     return err;
   }
 };
+
+export const GetAllAdoptionsOfUser = async (id) => {
+  try {
+    const res = await axios.get(`/formato_adopcion/usuario/${id}`);
+
+    if (res.status === 200) {
+      return res.data;
+    }
+    else {
+      return null;
+    }
+  }
+  catch (err) {
+    console.log(err);
+    return err;
+  }
+}

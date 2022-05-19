@@ -114,3 +114,21 @@ exports.formato_adopcion_getAll = async (req, res) => {
     res.send({ message: "No hay solicitudes de adopciones." });
   }
 };
+
+exports.formato_adopcion_getAllAdoptedByUser = async (req, res) => {
+  try {
+    const { usuarioId } = req.params;
+    const data = await FormatoAdopcion.find({ _usuario: usuarioId, isApproved: true })
+    .populate({ path: "_post", select: ["_id", "name"] });
+
+    if (data) {
+      res.send(data);
+    }
+    else {
+      res.send({ message: "No se pudo obtener los datos."});
+    }
+  }
+  catch (err) {
+    res.send({ message: "No hay solicitudes de adopciones." });
+  }
+};

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import {
   Card,
   CardActions,
@@ -11,9 +11,15 @@ import {
   Grid,
   Divider,
   Box,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { maxWidth, width } from "@mui/system";
+
+import { GetAllAdoptionsOfUser } from "../services/AdoptService";
 
 const profileCardStyle = {
   position: "relative",
@@ -37,8 +43,41 @@ const InfoStyle = { position: "relative", flex: "1 0 auto" };
 export default function ImgMediaCard(props) {
   const usuario = props.usuario;
 
+  const [input, setInput] = useState({
+    _post: ""
+  });
+  const [adoptados, setAdoptados] = useState();
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await GetAllAdoptionsOfUser(usuario._id);
+      if (data.message) {
+        setAdoptados(null);
+      }
+      else {
+        setAdoptados(data);
+      }
+    }
+    fetchData();
+  }, []);
+
+  const handleOnChangeInput = (e) => {
+    const { name, value } = e.target;
+
+    setInput({
+      ...input,
+      [name]: value,
+    });
+  };
+
   const handleOnClick = (e, option) => {
-    props.setPropPadre(option)
+    props.setPropPadre(option);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(input);
+    document.location.href = `/follow-up/crear/${input._post}`;
   };
 
   return (
@@ -57,7 +96,7 @@ export default function ImgMediaCard(props) {
               {usuario.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {usuario.bio}
+              {usuario.user}
             </Typography>
           </CardContent>
         </Box>
@@ -102,6 +141,47 @@ export default function ImgMediaCard(props) {
             >
               Bookmarks
             </Button>
+            <Box sx={{pt:15}}>
+              {
+                adoptados ? (
+
+                  <form onSubmit={handleSubmit}>
+                    <FormControl variant="standard" sx={{ m: 2, minWidth: 120 }}>
+                      <InputLabel>Mascotas Adoptadas</InputLabel>
+                      <Select
+                        name="_post"
+                        label="Pet"
+                        value={input._post}
+                        required
+                        //defaultValue="a"
+                        onChange={handleOnChangeInput}
+                      >
+                        {
+                          adoptados.map((mascota, index) => {
+                            return <MenuItem key={index} value={mascota._id}>{mascota._post.name}</MenuItem>
+                          })
+                        }
+                      </Select>
+                    </FormControl>
+                    <Button
+                      variant="contained"
+                      color="button"
+                      type="submit"
+                      sx={{
+                        marginLeft: "auto",
+                        fontFamily: "'Baloo Da 2', 'cursive'",
+                        fontSize: "20px",
+                      }}
+                      disableElevation
+                    >
+                      Follow Up!
+                    </Button>
+                  </form>
+                ) : (
+                  <></>
+                )
+              }
+            </Box>
           </CardActions>
         </Box>
       </Card>
