@@ -67,7 +67,7 @@ export default function Profile() {
             <h1>Paws</h1>
             {like.map((post, index) => {
               if (post.isActive) {
-                if (!post.isAdopted) {
+                if (!post._post.isAdopted) {
                   return <PostCard key={index} pet={post._post} />;
                 } else {
                   return null;
