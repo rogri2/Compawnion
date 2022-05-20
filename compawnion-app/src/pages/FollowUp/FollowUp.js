@@ -119,11 +119,17 @@ export default function FollowUp() {
         ) : option === "paws" ? (
           <>
             <h1>Paws</h1>
-            {like.map((mascota, index) => {
-              if (mascota.isActive) {
-                return <FollowUpCard key={index} pet={mascota._followUp} />;
-              }
-            })}
+            {
+              like ? (
+                like.map((mascota, index) => {
+                  if (mascota.isActive) {
+                    return <FollowUpCard key={index} pet={mascota._followUp} />;
+                  }
+                })
+              ) : (
+                <></>
+              )
+            }
           </>
         ) : (
           <>

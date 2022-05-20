@@ -15,7 +15,7 @@ import { GetPostsFromBookmark } from "../services/WatchListService";
 export default function Profile() {
   const { usuarioId } = useParams();
   const [usuario, setUsuario] = useState();
-  const [option, setOption] = useState("");
+  const [option, setOption] = useState("posts");
   const [bookmark, setBookmark] = useState();
   const [like, setLike] = useState();
   const [posts, setPosts] = useState();
@@ -58,22 +58,34 @@ export default function Profile() {
         {option === "posts" ? (
           <>
             <h1>Posts</h1>
-            {posts.map((post, index) => {
-              return <PostCard key={index} pet={post} />;
-            })}
+            {
+              posts ? (
+                posts.map((post, index) => {
+                  return <PostCard key={index} pet={post} />;
+                })
+              ) : (
+                <></>
+              )
+            }
           </>
         ) : option === "paws" ? (
           <>
             <h1>Paws</h1>
-            {like.map((post, index) => {
-              if (post.isActive) {
-                if (!post._post.isAdopted) {
-                  return <PostCard key={index} pet={post._post} />;
-                } else {
-                  return null;
-                }
-              }
-            })}
+            {
+              like ? (
+                like.map((post, index) => {
+                  if (post.isActive) {
+                    if (!post._post.isAdopted) {
+                      return <PostCard key={index} pet={post._post} />;
+                    } else {
+                      return null;
+                    }
+                  }
+                })
+              ) : (
+                <></>
+              )
+            }
           </>
         ) : option === "bookmarks" ? (
           <>
