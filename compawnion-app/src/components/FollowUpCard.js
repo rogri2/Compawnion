@@ -59,9 +59,14 @@ export default function FollowUpCard(props) {
         <Typography variant="body2">{pet.bio}</Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="like" onClick={handleLike}>
-          <Pets />
-        </IconButton>
+          {userData !== null ? (
+              <IconButton aria-label="like" onClick={handleLike}>
+              <Pets />
+            </IconButton>
+          ) : (
+            <></>
+          )}
+        
         <IconButton
           aria-label="bookmark"
           component={Link}

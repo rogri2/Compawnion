@@ -31,8 +31,10 @@ export default function FollowUp() {
       }
     }
     async function getLikesFU() {
-      const likeData = await GetLikesFromUserFU(userData._id);
-      setLike(likeData);
+      if (userData !== null) {
+        const likeData = await GetLikesFromUserFU(userData._id);
+        setLike(likeData);
+      }
     }
     fetchData();
     getLikesFU();
