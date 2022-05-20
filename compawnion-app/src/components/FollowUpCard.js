@@ -41,9 +41,6 @@ export default function FollowUpCard(props) {
         <IconButton aria-label="like">
           <Pets />
         </IconButton>
-        <IconButton aria-label="bookmark">
-              <Bookmark />
-            </IconButton>
         <IconButton aria-label="bookmark" component={Link} to={`/follow-up/${pet._id}`}>
           <Comment />
         </IconButton>

@@ -120,9 +120,6 @@ export default function MainFollowUpCard(props) {
             <IconButton aria-label="like">
               <Pets />
             </IconButton>
-            <IconButton aria-label="bookmark">
-              <Bookmark />
-            </IconButton>
             <ExpandMore
               expand={expanded}
               onClick={handleExpandClick}

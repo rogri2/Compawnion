@@ -64,18 +64,6 @@ export default function FollowUp() {
             >
               Paws
             </Button>
-            <Button
-              variant="contained"
-              color="button"
-              sx={{
-                marginLeft: "auto",
-                fontFamily: "'Baloo Da 2', 'cursive'",
-                fontSize: "20px",
-              }}
-              disableElevation
-            >
-              Bookmarks
-            </Button>
           </CardContent>
         </Card>
       </Box>
