@@ -3,8 +3,7 @@ const router = express.Router();
 
 const likeFU_controller = require('../controllers/LikeFUController');
 
-router.post("/likeFU", likeFU_controller.likeFU_create);
-router.put("/likeFU/:id", likeFU_controller.likeFU_update);
-router.get("/likeFU/:id", likeFU_controller.likeFU_getAll);
+router.put("/likeFU", likeFU_controller.likeFU_upsert);
+router.post("/likeFU/usuario", likeFU_controller.likeFU_getLikedByUserFU);
 
 module.exports = router;

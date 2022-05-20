@@ -6,9 +6,9 @@ const LikeFUSchema = new mongoose.Schema({
         ref: "usuario",
         required: true
     },
-    _post: {
+    _followUp: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "post",
+        ref: "follow_up",
         required: true
     },
     isActive: {
