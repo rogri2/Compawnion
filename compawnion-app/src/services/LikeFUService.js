@@ -21,7 +21,7 @@ export const GetLikesFromUserFU = async (data) => {
       _usuario: data,
     };
 
-    const res = await axios.post("likeFU/usuario", dataToSend);
+    const res = await axios.post("/likeFU/usuario", dataToSend);
 
     if (res) {
       return res.data;
