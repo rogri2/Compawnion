@@ -6,15 +6,18 @@ const ComentarioFUSchema = new mongoose.Schema({
         ref: "usuario",
         required: true
     },
-    _post: {
+    _followUp: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "post",
+        ref: "follow_up",
         required: true
     },
     texto: {
         type: String,
         required: true,
         maxlength: 120
+    },
+    date: {
+        type: String
     },
     isActive: {
         type: Boolean,

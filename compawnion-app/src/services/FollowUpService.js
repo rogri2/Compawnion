@@ -33,9 +33,9 @@ export const CreateFollowUp = async (data, img) => {
   }
 };
 
-export const GetAllFollowUps = async (id) => {
+export const GetAllFollowUps = async () => {
   try {
-    const response = await axios.get(`/follow_up/${id}`);
+    const response = await axios.get("/follow_up");
 
     if (response.status === 200) {
       return response.data;
