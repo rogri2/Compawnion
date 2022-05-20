@@ -27,6 +27,15 @@ const profileCardStyle = {
   maxWidth: "90rem",
   paddingBottom: "30px",
 };
+
+const profileCombo = {
+  position: "relative",
+  top: "0vh",
+  maxWidth: "120rem",
+  paddingBottom: "0px",
+};
+
+
 const BackDrop = {
   width: "160%",
   height: "550px",
@@ -37,6 +46,7 @@ const BackDrop = {
   backgroundColor: "green",
   backgroundColor: "linear-gradient(58deg, (pink)20%, (green)100%)",
 };
+
 const ImgStyle = { width: "25%", height: "240px" };
 const InfoStyle = { position: "relative", flex: "1 0 auto" };
 
@@ -100,8 +110,9 @@ export default function ImgMediaCard(props) {
             </Typography>
           </CardContent>
         </Box>
-        <Box sx={{ display: "flex", alignItems: "center", pt: 15 }}>
+        <Box sx={{ display: "flex" }}>
           <CardActions>
+          <Box sx={{ display: "flex", justifyContent: "space-evenly", alignItems: "end", pt:15, position: "relative"}}>
             <Button
               variant="contained"
               color="button"
@@ -119,7 +130,7 @@ export default function ImgMediaCard(props) {
               variant="contained"
               color="button"
               sx={{
-                marginLeft: "auto",
+                marginLeft: "25px",
                 fontFamily: "'Baloo Da 2', 'cursive'",
                 fontSize: "20px",
               }}
@@ -132,7 +143,7 @@ export default function ImgMediaCard(props) {
               variant="contained"
               color="button"
               sx={{
-                marginLeft: "auto",
+                marginLeft: "25px",
                 fontFamily: "'Baloo Da 2', 'cursive'",
                 fontSize: "20px",
               }}
@@ -141,12 +152,15 @@ export default function ImgMediaCard(props) {
             >
               Bookmarks
             </Button>
-            <Box sx={{pt:15}}>
+
+          </Box>
+            
+            <Box sx={{ paddingLeft: "10%" }}>
               {
                 adoptados ? (
                   adoptados.length !== 0 ? (
                     <form onSubmit={handleSubmit}>
-                    <FormControl variant="standard" sx={{ m: 2, minWidth: 120 }}>
+                    <FormControl variant="standard" sx={{ m: 5, minWidth: 200 }}>
                       <InputLabel>Mascotas Adoptadas</InputLabel>
                       <Select
                         name="_post"
@@ -168,7 +182,8 @@ export default function ImgMediaCard(props) {
                       color="button"
                       type="submit"
                       sx={{
-                        marginLeft: "auto",
+                        alignSelf: "auto",
+                        marginLeft: "25%",
                         fontFamily: "'Baloo Da 2', 'cursive'",
                         fontSize: "20px",
                       }}

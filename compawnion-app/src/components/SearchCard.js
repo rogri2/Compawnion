@@ -28,7 +28,8 @@ const profileCardStyle = {
   top: "5vh",
   maxWidth: "90rem",
   paddingBottom: "30px",
-  alignItems: "center",
+  justifyContent: 'center',
+  alignItems: 'center',
 };
 const BackDrop = {
   width: "160%",
@@ -68,7 +69,7 @@ export default function ImgMediaCard(props) {
 
   return (
     <Container style={profileCardStyle}>
-      <Card sx={{ display: "flex" }}>
+      <Card sx={{ display: "relative" }}>
         <Box sx={{ display: "flex", flexDirection: "column", pt: 2 }}>
           <CardContent>
             <Typography gutterBottom variant="h4" component="div" align="center">
@@ -79,6 +80,7 @@ export default function ImgMediaCard(props) {
               les de un hogar
             </Typography>
             <form onSubmit={handleSubmit}>
+              <Box sx={{ display: "flex" , justifyContent: "center", p: 1}}>
               <FormControl variant="filled" sx={{ m: 2, minWidth: 120 }}>
                 <TextField
                   name="name"
@@ -150,6 +152,7 @@ export default function ImgMediaCard(props) {
               >
                 <SearchIcon />
               </IconButton>
+              </Box>
             </form>
           </CardContent>
         </Box>

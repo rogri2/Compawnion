@@ -14,6 +14,15 @@ import FollowUpCard from "../../components/FollowUpCard";
 import { GetLikesFromUserFU } from "../../services/LikeFUService";
 import { GetAllFollowUps } from "../../services/FollowUpService";
 
+const followUpCardStyle = {
+  position: "relative",
+  top: "5vh",
+  maxWidth: "90rem",
+  paddingBottom: "30px",
+  justifyContent: 'center',
+  alignItems: 'center',
+};
+
 export default function FollowUp() {
   const localUser = JSON.parse(localStorage.getItem("usuario"));
   const [userData, setUserData] = useState(localUser);
@@ -45,8 +54,9 @@ export default function FollowUp() {
   };
 
   return (
-    <Container>
-      <Box sx={{ m: 3 }}>
+    <Container sx={{ followUpCardStyle }}>
+      <Box sx={{display: "relative" , justifyContent: "center", p: 1}}>
+      
         <Typography textAlign={"center"} variant="h3">
           Follow Up
         </Typography>
@@ -57,13 +67,14 @@ export default function FollowUp() {
         {
           userData ? (
 
-            <Card sx={{ m: 3 }}>
+            <Card sx={{ m: 3, justifyContent: "space-around", display: "flex" }}>
               <CardContent>
                 <Button
                   variant="contained"
                   color="button"
                   sx={{
                     marginLeft: "auto",
+                    marginRight: "50px",
                     fontFamily: "'Baloo Da 2', 'cursive'",
                     fontSize: "20px",
                   }}
@@ -76,7 +87,7 @@ export default function FollowUp() {
                   variant="contained"
                   color="button"
                   sx={{
-                    marginLeft: "auto",
+                    marginLeft: "50px",
                     fontFamily: "'Baloo Da 2', 'cursive'",
                     fontSize: "20px",
                   }}
@@ -91,6 +102,7 @@ export default function FollowUp() {
             <></>
           )
         }
+   
       </Box>
 
         {option === "follow_ups" ? (
