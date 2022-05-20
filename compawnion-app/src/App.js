@@ -19,6 +19,7 @@ import Mascota from './pages/Mascota';
 
 import FollowUp from './pages/FollowUp/FollowUp';
 import CrearFU from './pages/FollowUp/CrearFU';
+import FollowUpIndividual from './pages/FollowUp/FollowUpIndividual';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
 
             <Route exact path="/follow-up" element={ <FollowUp /> } />
             <Route exact path="/follow-up/crear/:adopcionId" element={ <CrearFU /> } />
+            <Route exact path="/follow-up/:followUpId" element={ <FollowUpIndividual /> } />
         </Routes>
       </Fragment>
     </ThemeProvider>

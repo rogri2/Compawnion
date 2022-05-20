@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Box, Container, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Typography,
+  Card,
+  CardActions,
+  CardContent,
+  Button,
+} from "@mui/material";
 
 import FollowUpCard from "../../components/FollowUpCard";
 
@@ -30,6 +38,46 @@ export default function FollowUp() {
           Aquí se muestran las historas de las mascotas después de haber sido
           adoptadas.
         </Typography>
+        <Card sx={{ m: 3 }}>
+          <CardContent>
+            <Button
+              variant="contained"
+              color="button"
+              sx={{
+                marginLeft: "auto",
+                fontFamily: "'Baloo Da 2', 'cursive'",
+                fontSize: "20px",
+              }}
+              disableElevation
+            >
+              Follow Ups
+            </Button>
+            <Button
+              variant="contained"
+              color="button"
+              sx={{
+                marginLeft: "auto",
+                fontFamily: "'Baloo Da 2', 'cursive'",
+                fontSize: "20px",
+              }}
+              disableElevation
+            >
+              Paws
+            </Button>
+            <Button
+              variant="contained"
+              color="button"
+              sx={{
+                marginLeft: "auto",
+                fontFamily: "'Baloo Da 2', 'cursive'",
+                fontSize: "20px",
+              }}
+              disableElevation
+            >
+              Bookmarks
+            </Button>
+          </CardContent>
+        </Card>
       </Box>
       {followUps ? (
         followUps.map((post, index) => {

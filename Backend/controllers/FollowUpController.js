@@ -52,14 +52,43 @@ exports.follow_up_delete = async (req, res) => {
 };
 
 exports.follow_up_getById = async (req, res) => {
-    const { id } = req.params;
-
-    const data = await FollowUp.findById(id)//.populate('_students');
-
-    if (data && data.isActive == true) {
-        res.send(data);
+    try {
+        const { followUpId } = req.params;
+    
+        const data = await FollowUp.findOne({ _id: followUpId, isActive: true })
+        .sort({ _id: -1 })
+        .populate([
+            {
+                path: "_adopcion",
+                select: ["_usuario", "_adopcion"],
+                populate: [
+                    {
+                        path: "_usuario",
+                        select: "_imgUsuario",
+                        populate: {
+                            path: "_imgUsuario"
+                        }
+                    },
+                    {
+                        path: "_post",
+                        select: "name"
+                    }
+                ]
+            },
+            {
+                path: "_imgFU",
+                select: "archivo"
+            }
+        ]);
+    
+        if (data) {
+            res.send(data);
+        }
+        else {
+            res.send({ message: "No se encontro el post ingresado" });
+        }
     }
-    else {
+    catch (err) {
         res.send({ message: "No se encontro el post ingresado" });
     }
 };
