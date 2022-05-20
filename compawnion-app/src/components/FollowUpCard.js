@@ -1,39 +1,50 @@
-import React from 'react'
+import React from "react";
 import { Link } from "react-router-dom";
-import { Card, CardHeader, Avatar, CardMedia, CardContent, Typography, CardActions, IconButton, Button } from '@mui/material'
-import { Pets, Bookmark, Comment } from '@mui/icons-material/'
+import {
+  Card,
+  CardHeader,
+  Avatar,
+  CardMedia,
+  CardContent,
+  Typography,
+  CardActions,
+  IconButton,
+  Button,
+} from "@mui/material";
+import { Pets, Bookmark, Comment } from "@mui/icons-material/";
 
-export default function FollowUpCard() {
+export default function FollowUpCard(props) {
+  const pet = props.pet;
   return (
-    <Card sx={{m:5}}>
-        <CardHeader 
-            avatar={
-                <Avatar aria-label="recipe">
-                    R
-                </Avatar>
-            }
-            title="Post"
-            subheader="04 de Abril de 2022"
-        />
-        <CardMedia
-            component="img"
-            height="500"
-            image="https://www.purina-latam.com/sites/g/files/auxxlc391/files/styles/social_share_large/public/purina-por-que-los-perros-mueven-la-cola.png?itok=Kw0lwckl"
-            alt="post"
-        />
-        <CardContent>
-            <Typography variant="body2">
-                sdfkjghsdf skdjfhglksdjfhg lsdkjfgh lksdjfhg lksjdfhg lksjdfh lskdjfhg lsdkjfh glskdjfh glskdjf glskdjf ghlskdjfh glksdjf hglksjd fhg
-            </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-            <IconButton aria-label="like">
-                <Pets />
-            </IconButton>
-            <IconButton aria-label="bookmark" component={Link} to="/mascota/:id">
-                <Comment />
-            </IconButton>
-        </CardActions>
+    <Card sx={{ m: 5 }}>
+      <CardHeader
+        avatar={
+          <Avatar aria-label="recipe" src={pet._adopcion._usuario._imgUsuario.archivo}>
+            R
+          </Avatar>
+        }
+        title={pet._adopcion._post.name}
+        subheader="04 de Abril de 2022"
+      />
+      <CardMedia
+        component="img"
+        height="500"
+        image={pet._imgFU.archivo}
+        alt="post"
+      />
+      <CardContent>
+        <Typography variant="body2">
+          {pet.bio}
+        </Typography>
+      </CardContent>
+      <CardActions disableSpacing>
+        <IconButton aria-label="like">
+          <Pets />
+        </IconButton>
+        <IconButton aria-label="bookmark" component={Link} to="/mascota/:id">
+          <Comment />
+        </IconButton>
+      </CardActions>
     </Card>
-  )
+  );
 }

@@ -34,3 +34,21 @@ export const CreateFollowUp = async (data, img) => {
     return err;
   }
 };
+
+
+export const GetAllFollowUps = async () => {
+    try {
+        const  response = await axios.get("/follow_up");
+
+        if (response.status === 200) {
+            return response.data;
+        }
+        else {
+            return null;
+        }
+    }
+    catch (err) {
+        console.log(err);
+        return err;
+    }
+};

@@ -65,10 +65,39 @@ exports.follow_up_getById = async (req, res) => {
 };
 
 exports.follow_up_getAll = async (req, res) => {
-    // Para regresar varios, en el School.find() agregar un objeto como parámetro
-    const data = await FollowUp.find({ isActive: true });
+    try {
+        const data = await FollowUp.find({ isActive: true })
+        .sort({ _id: -1 })
+        .populate([
+            {
+                path: "_adopcion",
+                select: ["_usuario", "_adopcion"],
+                populate: [
+                    {
+                        path: "_usuario",
+                        select: "_imgUsuario",
+                        populate: {
+                            path: "_imgUsuario"
+                        }
+                    },
+                    {
+                        path: "_post",
+                        select: "name"
+                    }
+                ]
+            },
+            {
+                path: "_imgFU",
+                select: "archivo"
+            }
+        ]);
+    
+        res.send(data);
 
-    res.send(data);
+    }
+    catch (err) {
+
+    }
 };
 
 exports.follow_up_getAllUser = async (req, res) => {
