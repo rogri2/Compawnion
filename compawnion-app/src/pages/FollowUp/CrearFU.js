@@ -4,6 +4,7 @@ import { Box, Button, Typography, Grid, Container, Card, TextField, CardContent,
 import { styled } from '@mui/styles';
 
 import { CreateFollowUp } from '../../services/FollowUpService';
+import { UpdateAdoptionFU } from '../../services/AdoptService';
 
 const Input = styled('input')({
   display: 'none',
@@ -48,6 +49,8 @@ export default function CrearFU() {
       }
       else {
         const response = await CreateFollowUp(input, image);
+
+        await UpdateAdoptionFU(adopcionId, { hasFollowUp: true });
 
         if (response.message) {
           alert("Error al crear post, intente más tarde.");

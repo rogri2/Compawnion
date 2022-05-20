@@ -75,55 +75,59 @@ export default function AdoptionTable() {
   };
 
   return adoptions ? (
-    <Card>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell align="center">
-                <b>Solicitante</b>
-              </TableCell>
-              <TableCell align="center">
-                <b>Mascota</b>
-              </TableCell>
-              <TableCell align="center">
-                <b>Solicitud</b>
-              </TableCell>
-              <TableCell align="center">
-                <b>Decisión</b>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {adoptions.map((adoption, index) => {
-              return adoption._post.isAdopted === false ? (
-                <TableRow key={index}>
-                  <TableCell align="center">{adoption._usuario.name}</TableCell>
-                  <TableCell align="center">{adoption._post.name}</TableCell>
-                  <TableCell align="center">
-                    <SolicitudModal solicitud={adoption}/>
-                  </TableCell>
-                  <TableCell align="center">
-                    <IconButton
-                      onClick={(e) =>
-                        handleAceptar(e, adoption._post._id, adoption._id)
-                      }
-                    >
-                      <CheckIcon />
-                    </IconButton>
-                    <IconButton onClick={(e) => handleDenegar(e, adoption._id)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ) : (
-                <></>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Card>
+    adoptions.length !== 0 ? (
+      <Card>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">
+                  <b>Solicitante</b>
+                </TableCell>
+                <TableCell align="center">
+                  <b>Mascota</b>
+                </TableCell>
+                <TableCell align="center">
+                  <b>Solicitud</b>
+                </TableCell>
+                <TableCell align="center">
+                  <b>Decisión</b>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {adoptions.map((adoption, index) => {
+                if (adoption._post.isAdopted === false) {
+                  return (
+                    <TableRow key={index}>
+                      <TableCell align="center">{adoption._usuario.name}</TableCell>
+                      <TableCell align="center">{adoption._post.name}</TableCell>
+                      <TableCell align="center">
+                        <SolicitudModal solicitud={adoption}/>
+                      </TableCell>
+                      <TableCell align="center">
+                        <IconButton
+                          onClick={(e) =>
+                            handleAceptar(e, adoption._post._id, adoption._id)
+                          }
+                        >
+                          <CheckIcon />
+                        </IconButton>
+                        <IconButton onClick={(e) => handleDenegar(e, adoption._id)}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  )
+                }
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Card>
+    ) : (
+      <h1>No hay solicitudes pendientes.</h1>
+    )
   ) : (
     <h1>No hay solicitudes pendientes.</h1>
   );

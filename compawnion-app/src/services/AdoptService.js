@@ -36,12 +36,10 @@ export const UpdateAdoption = async (id) => {
 
     if (res.status === 200) {
       return res.data;
-    }
-    else {
+    } else {
       return null;
     }
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
     return err;
   }
@@ -53,13 +51,26 @@ export const GetAllAdoptionsOfUser = async (id) => {
 
     if (res.status === 200) {
       return res.data;
-    }
-    else {
+    } else {
       return null;
     }
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
     return err;
   }
-}
+};
+
+export const UpdateAdoptionFU = async (id, data) => {
+  try {
+    const res = await axios.put(`/formato_adopcion/${id}`, data);
+
+    if (res.status === 200) {
+      return res.data;
+    } else {
+      return null;
+    }
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+};
