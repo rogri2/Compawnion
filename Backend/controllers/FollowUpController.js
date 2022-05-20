@@ -1,26 +1,23 @@
 const FollowUp = require('../models/FollowUpSchema');
 
 exports.follow_up_create = async (req, res) => {
-    const { body } = req;
-    let newFollowUp = new FollowUp(body);
-
-    await newFollowUp.save()
-    .then((newObject) => {
-        /*let newWatchList = new WatchList(newUsuario._id);
-        await newWatchList.save()
-        .then(() => {
-            console.log("Se creo la watchlist");
+    try {
+        const { body } = req;
+        let newFollowUp = new FollowUp(body);
+    
+        await newFollowUp.save()
+        .then((newObject) => {
+            console.log("Success!", newObject);
+            res.send(newObject);
         })
         .catch((err) => {
             console.error("Error!", err);
-            res.send(err.errors);
-        });*/
-        console.log("Success!", newObject);
-    })
-    .catch((err) => {
-        console.error("Error!", err);
-        res.send(err.errors);
-    });
+            res.send({ message: "No se pudo crear el follow up. "});
+        });
+    }
+    catch (err) {
+        res.send({ message: "No se pudo crear el follow up. "});
+    }
 };
 
 exports.follow_up_update = async (req, res) => {

@@ -73,9 +73,6 @@ export default function Publish() {
         alert("Debe incluir una imagen de la mascota.");
       }
       else {
-        //console.log("pet: ", pet);
-  
-        // REGISTRO DE MASCOTA
         const response = await CreatePost(pet);
   
         if (response.message) {
@@ -84,7 +81,6 @@ export default function Publish() {
           alert("Se ha creado el post con éxito.");
           document.location.href = "/";
         }
-  
       }
     }
   };

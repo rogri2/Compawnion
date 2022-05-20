@@ -1,12 +1,63 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useParams } from "react-router-dom";
 import { Box, Button, Typography, Grid, Container, Card, TextField, CardContent, FormControl, FormLabel, FormControlLabel, RadioGroup, Radio, NativeSelect, InputLabel, FormGroup } from '@mui/material';
 import { styled } from '@mui/styles';
+
+import { CreateFollowUp } from '../../services/FollowUpService';
 
 const Input = styled('input')({
   display: 'none',
 });
 
 export default function CrearFU() {
+  const { adopcionId } = useParams();
+  const localUser = JSON.parse(localStorage.getItem("usuario"));
+  const [input, setInput] = useState({
+    bio: "",
+    _adopcion: adopcionId
+  });
+  const [image, setImage] = useState();
+
+  const handleOnChangeInput = (e) => {
+    const { value, name } = e.target;
+
+    setInput({
+      ...input,
+      [name]: value,
+    });
+  };
+
+  const handleOnChangeFile = (e) => {
+    console.log("selected file: ", e.target.files[0]?.name);
+
+    setImage(e.target.files[0]);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (localUser === null) {
+      alert("Necesitas iniciar sesión para poder publicar.");
+    }
+    else {
+      var file = document.getElementById("file");
+
+      if (file.files.length === 0){
+        alert("Debe incluir una imagen de la mascota.");
+      }
+      else {
+        const response = await CreateFollowUp(input, image);
+
+        if (response.message) {
+          alert("Error al crear post, intente más tarde.");
+        } else {
+          alert("Se ha creado el post con éxito.");
+          //document.location.href = "/";
+        }
+      }
+    }
+  };
+
   return (
     <Container sx={{my:6}}>
       <Card style={{
@@ -26,35 +77,46 @@ export default function CrearFU() {
             gutterBottom
           >Éste es un apartado de la página donde uno puede contar sus experiencias con su mascota ya después de la adopción, para que el resto de las personas puedan ver como ha sido cambiada la vida del animal que adoptó.</Typography>
           <br></br>
-          <form>
+          <form onSubmit={handleSubmit}>
             <Grid container spacing={1}>
               <Grid xs={12} sm={12} item>
-                <TextField
-                  multiline
-                  rows={5}
-                  label="Cuéntanos como te ha ido con tu nueva mascota."
-                  placeholder='Cuéntanos como te ha ido con tu nueva mascota.'
-                  variant='outlined'
-                  fullWidth
-                  required
-                />
+                <FormControl fullWidth>
+                  <TextField
+                    multiline
+                    rows={5}
+                    label="Cuéntanos como te ha ido con tu nueva mascota."
+                    placeholder='Cuéntanos como te ha ido con tu nueva mascota.'
+                    variant='outlined'
+                    required
+                    name="bio"
+                    value={input.bio}
+                    onChange={handleOnChangeInput}
+                  />
+                </FormControl>
               </Grid>
               <Grid xs={12} sm={12} item>
-                <Box textAlign='center'>  
-                  <label htmlFor='button-file'>
-                    <Input accept="image/*" id="button-file" type="file" required />
+                <Box textAlign="center">
+                  <FormControl>
                     <Button
-                      component="span"
                       variant="contained"
+                      component="label"
                       color="button"
                       sx={{
-                        m:1,
-                        width: '200px',
+                        m: 1,
+                        width: "200px",
                         fontFamily: "'Baloo Da 2', 'cursive'",
-                        fontSize: "20px"
+                        fontSize: "20px",
                       }}
-                    >Subir Imágen</Button>
-                  </label>
+                    >
+                      Subir Imágen
+                      <input
+                        type="file"
+                        id="file"
+                        hidden
+                        onChange={handleOnChangeFile}
+                      />
+                    </Button>
+                  </FormControl>
                 </Box>
               </Grid>
               <Grid xs={12} sm={12} item>
