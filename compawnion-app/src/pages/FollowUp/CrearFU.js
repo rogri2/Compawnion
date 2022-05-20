@@ -14,7 +14,8 @@ export default function CrearFU() {
   const localUser = JSON.parse(localStorage.getItem("usuario"));
   const [input, setInput] = useState({
     bio: "",
-    _adopcion: adopcionId
+    _adopcion: adopcionId,
+    date: ""
   });
   const [image, setImage] = useState();
 
@@ -52,10 +53,23 @@ export default function CrearFU() {
           alert("Error al crear post, intente más tarde.");
         } else {
           alert("Se ha creado el post con éxito.");
-          //document.location.href = "/";
+          document.location.href = "/";
         }
       }
     }
+  };
+
+  const handleOnClick = (e) => {
+    const date = new Date();
+    const opts = {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    }
+    setInput({
+      ...input,
+      date: date.toLocaleString("es-MX", opts)
+    });
   };
 
   return (
@@ -125,13 +139,14 @@ export default function CrearFU() {
                     type="submit"
                     variant="contained"
                     color="button"
+                    onClick={handleOnClick}
                     sx={{
                       m:1,
                       width: '250px',
                       fontFamily: "'Baloo Da 2', 'cursive'",
                       fontSize: "20px"
                     }}
-                  >Poner en adopción</Button>
+                  >Crear Follow Up</Button>
                 </Box>
               </Grid>
             </Grid>

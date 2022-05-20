@@ -9,6 +9,9 @@ const FollowUpSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  date: {
+    type: String,
+  },
   _adopcion: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "formato_adopcion",

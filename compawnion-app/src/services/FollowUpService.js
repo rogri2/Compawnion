@@ -17,6 +17,7 @@ export const CreateFollowUp = async (data, img) => {
           _imgFU: response.data._id,
           bio: data.bio,
           _adopcion: data._adopcion,
+          date: data.date
         };
       });
 

@@ -144,8 +144,8 @@ export default function ImgMediaCard(props) {
             <Box sx={{pt:15}}>
               {
                 adoptados ? (
-
-                  <form onSubmit={handleSubmit}>
+                  adoptados.length !== 0 ? (
+                    <form onSubmit={handleSubmit}>
                     <FormControl variant="standard" sx={{ m: 2, minWidth: 120 }}>
                       <InputLabel>Mascotas Adoptadas</InputLabel>
                       <Select
@@ -177,6 +177,10 @@ export default function ImgMediaCard(props) {
                       Follow Up!
                     </Button>
                   </form>
+                  ) : (
+                    <></>
+                  )
+                  
                 ) : (
                   <></>
                 )

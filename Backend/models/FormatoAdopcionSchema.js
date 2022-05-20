@@ -39,6 +39,10 @@ const FormatoAdopcionSchema = new mongoose.Schema({
     isApproved: {
         type: Boolean,
         default: false
+    },
+    hasFollowUp: {
+        type: Boolean,
+        default: false
     }
 });
 

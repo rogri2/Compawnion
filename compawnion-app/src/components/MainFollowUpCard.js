@@ -101,7 +101,7 @@ export default function MainFollowUpCard(props) {
           </Avatar>
         }
         title={followUp._adopcion._post.name}
-        subheader="04 de Abril de 2022"
+        subheader={followUp.date}
       />
       <CardMedia
         component="img"

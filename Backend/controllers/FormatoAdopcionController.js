@@ -118,7 +118,7 @@ exports.formato_adopcion_getAll = async (req, res) => {
 exports.formato_adopcion_getAllAdoptedByUser = async (req, res) => {
   try {
     const { usuarioId } = req.params;
-    const data = await FormatoAdopcion.find({ _usuario: usuarioId, isApproved: true })
+    const data = await FormatoAdopcion.find({ _usuario: usuarioId, isApproved: true, hasFollowUp: false })
     .populate({ path: "_post", select: ["_id", "name"] });
 
     if (data) {
