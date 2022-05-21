@@ -21,6 +21,8 @@ import FollowUp from './pages/FollowUp/FollowUp';
 import CrearFU from './pages/FollowUp/CrearFU';
 import FollowUpIndividual from './pages/FollowUp/FollowUpIndividual';
 
+
+
 function App() {
   return (
     <ThemeProvider theme={theme}>

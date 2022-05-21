@@ -15,9 +15,9 @@ import { GetLikesFromUserFU } from "../../services/LikeFUService";
 import { GetAllFollowUps } from "../../services/FollowUpService";
 
 const followUpCardStyle = {
-  position: "relative",
+  position: "flex",
   top: "5vh",
-  maxWidth: "90rem",
+  maxWidth: "45rem",
   paddingBottom: "30px",
   justifyContent: 'center',
   alignItems: 'center',
@@ -55,20 +55,29 @@ export default function FollowUp() {
 
   return (
     <Container sx={{ followUpCardStyle }}>
-      <Box sx={{display: "relative" , justifyContent: "center", p: 1}}>
-      
-        <Typography textAlign={"center"} variant="h3">
+      <Box sx={{display: "relative"  }}>
+      <Box sx={{display: "relative" , mt: 2 }}> 
+      <Typography textAlign={"center"} variant="h3" 
+      sx={{
+              textDecoration: "none",
+              boxShadow: "none",
+              color: "inherit",
+              fontFamily: "'Nanum Pen Script', 'cursive'",
+              fontSize: "95px",
+            }}>
           Follow Up
         </Typography>
+
         <Typography textAlign={"center"} color="textSecondary" variant="body2">
           Aquí se muestran las historas de las mascotas después de haber sido
           adoptadas.
         </Typography>
+        </Box>
         {
           userData ? (
 
-            <Card sx={{ m: 3, justifyContent: "space-around", display: "flex" }}>
-              <CardContent>
+            <Box sx={{ m: 3, justifyContent: "center", display: "flex" }}>
+              <CardContent sx={{ m: 1, justifyContent: "center", display: "static" }} >
                 <Button
                   variant="contained"
                   color="button"
@@ -76,7 +85,7 @@ export default function FollowUp() {
                     marginLeft: "auto",
                     marginRight: "50px",
                     fontFamily: "'Baloo Da 2', 'cursive'",
-                    fontSize: "20px",
+                    fontSize: "35px",
                   }}
                   disableElevation
                   onClick={(e) => handleOnClick(e, "follow_ups")}
@@ -89,7 +98,7 @@ export default function FollowUp() {
                   sx={{
                     marginLeft: "50px",
                     fontFamily: "'Baloo Da 2', 'cursive'",
-                    fontSize: "20px",
+                    fontSize: "35px",
                   }}
                   disableElevation
                   onClick={(e) => handleOnClick(e, "paws")}
@@ -97,7 +106,7 @@ export default function FollowUp() {
                   Paws
                 </Button>
               </CardContent>
-            </Card>
+            </Box>
           ) : (
             <></>
           )
@@ -107,7 +116,9 @@ export default function FollowUp() {
 
         {option === "follow_ups" ? (
           <>
+          <Card sx={{ m: 2, justifyContent: "center", display: "flex" }}>
             <h1>Follow Ups</h1>
+            </Card>
             {followUps ? (
               followUps.map((post, index) => {
                 return <FollowUpCard key={index} pet={post} />;
@@ -118,7 +129,10 @@ export default function FollowUp() {
           </>
         ) : option === "paws" ? (
           <>
+        
+        <Card sx={{ m: 2, justifyContent: "center", display: "flex" }}>
             <h1>Paws</h1>
+            </Card>
             {
               like ? (
                 like.map((mascota, index) => {

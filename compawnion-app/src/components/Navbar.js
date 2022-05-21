@@ -8,6 +8,13 @@ const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
 }));
 
+const styles = {
+  paperContainer: {
+      backgroundImage: `url(${Image})`
+  }
+};
+
+
 const handleClick = (e) => {
   var answer = window.confirm("¿Desea cerrar sesión?");
 
