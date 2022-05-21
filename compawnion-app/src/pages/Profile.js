@@ -7,6 +7,11 @@ import PostCardProfile from "../components/PostCardProfile";
 //import { maxWidth } from '@mui/system';
 import PostCard from "../components/PostCard";
 
+import {
+  Box,
+  Card,
+} from "@mui/material";
+
 import { GetById } from "../services/UsuarioService";
 import { GetPostsByUser } from "../services/PetService";
 import { GetLikesFromUser } from "../services/LikeService";
@@ -57,7 +62,9 @@ export default function Profile() {
       <Container>
         {option === "posts" ? (
           <>
-            <h1>Posts</h1>
+            <Card sx={{ m: 2, justifyContent: "center", display: "flex" }}>
+            <h2>Posts</h2>
+            </Card>
             {
               posts ? (
                 posts.map((post, index) => {
@@ -70,7 +77,10 @@ export default function Profile() {
           </>
         ) : option === "paws" ? (
           <>
-            <h1>Paws</h1>
+            <Card sx={{ m: 2, justifyContent: "center", display: "flex" }}>
+            <h2>Paws</h2>
+            </Card>
+
             {
               like ? (
                 like.map((post, index) => {
@@ -89,7 +99,9 @@ export default function Profile() {
           </>
         ) : option === "bookmarks" ? (
           <>
-            <h1>Bookmarks</h1>
+          <Card sx={{ m: 2, justifyContent: "center", display: "flex" }}>
+            <h2>Bookmarks</h2>
+            </Card>
             {bookmark._posts.map((post, index) => {
               if (!post.isAdopted) {
                 return <PostCard key={index} pet={post} />;
