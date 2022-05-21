@@ -3,11 +3,17 @@ import { Link } from "react-router-dom";
 import { Button, AppBar, Toolbar, Typography, IconButton } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { AddCircle } from "@mui/icons-material";
-import { Image } from '../components/css/bg_2.png';
 
 const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
 }));
+
+const styles = {
+  paperContainer: {
+      backgroundImage: `url(${Image})`
+  }
+};
+
 
 const handleClick = (e) => {
   var answer = window.confirm("¿Desea cerrar sesión?");
