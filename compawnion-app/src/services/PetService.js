@@ -109,7 +109,9 @@ export const AdoptPet = async (petId, petData, adoptId, adoptData) => {
 
 export const GetPostsByUser = async (id) => {
   try {
-    const response = await axios.get(`/post/usuario/${id}`);
+    const response = await axios.get(`/post/usuario/${id}`, { headers: {
+      Authorization: "Bearer " + JSON.parse(localStorage.getItem("token"))
+    }});
 
     if (response.status === 200) {
       return response.data;

@@ -110,10 +110,11 @@ exports.post_getAll = async (req, res) => {
 
 exports.post_getAllUser = async (req, res) => {
   try {
+    const user = req.verifiedData;
     const { userId } = req.params;
     const data = await Post.find({
       isActive: true,
-      _usuario: userId,
+      _usuario: user._id,
       isAdopted: false,
     })
       .populate({ path: "_imgPost", select: "archivo" })

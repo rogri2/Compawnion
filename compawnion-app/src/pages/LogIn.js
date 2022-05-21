@@ -39,7 +39,8 @@ export default function LogIn() {
     if (res.message) {
       alert("Error en usuario o contraseña.");
     } else {
-      localStorage.setItem("usuario", JSON.stringify(res));
+      localStorage.setItem("usuario", JSON.stringify(res.userdb));
+      localStorage.setItem("token", JSON.stringify(res.token));
       document.location.href = "/";
     }
   };

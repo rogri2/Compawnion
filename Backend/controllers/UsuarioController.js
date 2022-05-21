@@ -1,4 +1,5 @@
 const Usuario = require("../models/UsuarioSchema");
+const { createJWT } = require("../middleware/auth");
 //const WatchList = require('../models/WatchListSchema');
 
 exports.usuario_create = async (req, res) => {
@@ -10,7 +11,8 @@ exports.usuario_create = async (req, res) => {
       .save()
       .then((newObject) => {
         console.log("Success!", newObject);
-        res.send(newObject);
+        const token = createJWT(newObject);
+        res.send({token, newObject});
       })
       .catch((err) => {
         console.error("Error!", err);
@@ -72,7 +74,8 @@ exports.usuario_logIn = async (req, res) => {
     const userdb = await Usuario.findOne({ user: body.user, pass: body.pass });
 
     if (userdb) {
-      res.send(userdb);
+      const token = createJWT(userdb);
+      res.send({token, userdb});
     } else {
       res.send({ message: "Usuario no se pudo logear" });
     }

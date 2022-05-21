@@ -17,6 +17,12 @@ import { GetPostsByUser } from "../services/PetService";
 import { GetLikesFromUser } from "../services/LikeService";
 import { GetPostsFromBookmark } from "../services/WatchListService";
 
+function authFailed() {
+  alert("El token ha expirado, inicie sesión de nuevo")
+  localStorage.clear()
+  document.location.href = "/login"
+};
+
 export default function Profile() {
   const { usuarioId } = useParams();
   const [usuario, setUsuario] = useState();
@@ -70,7 +76,7 @@ export default function Profile() {
                 posts.map((post, index) => {
                   return <PostCard key={index} pet={post} />;
                 })
-              ) : (
+                ) : (
                 <></>
               )
             }
