@@ -60,7 +60,8 @@ export default function Registro() {
         alert("Error al registrar usuario, intente más tarde.");
       } else {
         alert("Te has registrado con exito");
-        localStorage.setItem("usuario", JSON.stringify(response));
+        localStorage.setItem("usuario", JSON.stringify(response.newObject));
+        localStorage.setItem("token", JSON.stringify(response.token));
         document.location.href = "/";
       }
     }
